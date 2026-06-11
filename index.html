@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBS Wholesale & Retail Survey Estimator</title>
+<style>
+  :root {
+    --ink:       #0f1923;
+    --ink-mid:   #3a4a5c;
+    --ink-light: #7a8fa6;
+    --paper:     #f5f7fa;
+    --surface:   #ffffff;
+    --border:    #dde3ec;
+    --accent:    #1355c4;
+    --accent-lt: #e8eeff;
+    --gold:      #c08a1e;
+    --gold-lt:   #fff7e0;
+    --green:     #1a7a4a;
+    --red:       #c0331e;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+    --r: 6px;
+    --mono: 'Courier New', Courier, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--paper); color: var(--ink); font-size: 14px; line-height: 1.55; }
+
+  .app-header {
+    background: var(--ink); color: #fff; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 58px; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-md);
+  }
+  .app-header h1 { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+  .app-header h1 span.badge {
+    background: var(--accent); color: #fff; font-size: 10px; font-weight: 800;
+    letter-spacing: 1px; padding: 2px 7px; border-radius: 3px; text-transform: uppercase;
+  }
+  .header-meta { font-size: 11px; color: #aab6c8; text-align: right; }
+
+  .app-body { max-width: 1150px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .control-panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--r); padding: 22px 24px; margin-bottom: 20px; box-shadow: var(--shadow-sm);
+  }
+  .control-panel h2 {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .8px; color: var(--ink-light); margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .ctrl-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+  .ctrl-group { display: flex; flex-direction: column; gap: 5px; }
+  .ctrl-group label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--ink-mid); }
+  .ctrl-group select, .ctrl-group input {
+    border: 1px solid var(--border); border-radius: var(--r);
+    padding: 8px 11px; font-size: 13px; color: var(--ink);
+    background: var(--paper); outline: none; transition: border-color .15s;
+  }
+  .ctrl-group select { min-width: 210px; }
+  .ctrl-group input  { min-width: 130px; }
+  .ctrl-group select:focus, .ctrl-group input:focus { border-color: var(--accent); background: #fff; }
+
+  /* Loan question row */
+  .loan-row {
+    background: #eef6ff; border: 1px solid #b6d0f5;
+    border-radius: var(--r); padding: 14px 18px; margin-bottom: 20px;
+    display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end;
+  }
+  .loan-row .ctrl-group label { color: var(--accent); }
+  .loan-note { font-size: 11px; color: var(--accent); align-self: flex-end; padding-bottom: 9px; font-style: italic; }
+
+  /* Fixed values row */
+  .fixed-row {
+    background: var(--gold-lt); border: 1px solid #e8c96a;
+    border-radius: var(--r); padding: 14px 18px; margin-bottom: 20px;
+    display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end;
+  }
+  .fixed-row .ctrl-group label { color: var(--gold); }
+  .fixed-note { font-size: 11px; color: var(--gold); align-self: flex-end; padding-bottom: 9px; font-style: italic; }
+
+  /* Radio toggle for loan */
+  .radio-group { display: flex; gap: 10px; align-items: center; padding: 8px 0; }
+  .radio-group label { font-size: 13px; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--ink); display: flex; align-items: center; gap: 5px; cursor: pointer; }
+  .radio-group input[type=radio] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
+
+  .loan-amount-wrap { display: none; }
+  .loan-amount-wrap.visible { display: flex; flex-direction: column; gap: 5px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 22px; border: none; border-radius: var(--r);
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: opacity .15s, transform .1s; white-space: nowrap;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: .88; }
+
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); margin-bottom: 12px; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: 14px; margin-bottom: 24px; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+  .kpi-card .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--ink-light); margin-bottom: 6px; }
+  .kpi-card .kpi-value { font-size: 20px; font-weight: 800; font-family: var(--mono); color: var(--ink); line-height: 1.1; }
+  .kpi-card .kpi-unit { font-size: 10px; color: var(--ink-light); margin-top: 2px; }
+  .kpi-card.accent { border-top: 3px solid var(--accent); }
+  .kpi-card.gold   { border-top: 3px solid var(--gold); }
+  .kpi-card.green  { border-top: 3px solid var(--green); }
+  .kpi-card.red    { border-top: 3px solid var(--red); }
+
+  .meta-strip {
+    background: var(--accent-lt); border: 1px solid #c5d4f5;
+    border-radius: var(--r); padding: 12px 18px;
+    display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 20px; font-size: 12px;
+  }
+  .meta-strip .meta-item strong { color: var(--accent); }
+
+  .tables-wrapper { display: flex; flex-direction: column; gap: 22px; }
+  .survey-table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-sm); overflow: hidden; }
+  .stc-header { background: var(--ink); color: #fff; padding: 12px 20px; display: flex; align-items: center; gap: 12px; }
+  .stc-header .tbl-num { background: var(--accent); width: 26px; height: 26px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+  .stc-header .tbl-title { font-size: 13px; font-weight: 700; }
+  .stc-header .tbl-sub { font-size: 11px; color: #aab6c8; margin-top: 1px; }
+  .tbl-scroll { overflow-x: auto; }
+
+  table.survey { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.survey thead tr { background: var(--paper); }
+  table.survey thead th { padding: 10px 16px; text-align: right; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--ink-light); border-bottom: 2px solid var(--border); white-space: nowrap; }
+  table.survey thead th:first-child { text-align: left; }
+  table.survey tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+  table.survey tbody tr:hover { background: var(--paper); }
+  table.survey tbody td { padding: 9px 16px; color: var(--ink-mid); text-align: right; font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+  table.survey tbody td:first-child { text-align: left; font-family: inherit; font-size: 13px; color: var(--ink); font-weight: 500; }
+  table.survey tfoot tr { background: var(--ink); color: #fff; }
+  table.survey tfoot td { padding: 10px 16px; text-align: right; font-family: var(--mono); font-size: 12px; font-weight: 700; color: #fff; white-space: nowrap; }
+  table.survey tfoot td:first-child { text-align: left; font-family: inherit; font-size: 13px; }
+  .val-positive { color: var(--green) !important; }
+  .val-negative { color: var(--red) !important; }
+  .fixed-tag { font-size: 9px; background: var(--gold-lt); color: var(--gold); border: 1px solid #e8c96a; border-radius: 3px; padding: 1px 5px; margin-left: 6px; font-weight: 700; vertical-align: middle; }
+
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--ink-light); }
+  .empty-state .es-icon { font-size: 48px; margin-bottom: 12px; }
+  .error-msg { color: var(--red); font-size: 11px; margin-top: 3px; display: none; }
+
+  @media print {
+    .app-header, .control-panel, .loan-row, .fixed-row { display: none !important; }
+    .app-body { padding: 0; }
+    .survey-table-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+  }
+  @media (max-width: 640px) {
+    .app-header { padding: 0 12px; }
+    .app-body { padding: 14px 10px 40px; }
+    .ctrl-group select { min-width: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <h1>📊 Best Survey Estimator <span class="badge">Tanzania</span></h1>
+  <div class="header-meta">Wholesale &amp; Retail Trade Survey<br>National Bureau of Statistics</div>
+</header>
+
+<div class="app-body">
+
+  <!-- ===== MAIN CONTROLS ===== -->
+  <div class="control-panel">
+    <h2>Usanidi wa Utafiti (Survey Configuration)</h2>
+    <div class="ctrl-row">
+
+      <div class="ctrl-group">
+        <label>Aina ya Biashara</label>
+        <select id="bizType">
+          <option value="general_retail">Duka la Bidhaa Mchanganyiko</option>
+          <option value="cosmetics">Duka la Vipodozi</option>
+          <option value="pharmacy">Duka la Dawa</option>
+          <option value="clothing">Duka la Mavazi</option>
+          <option value="hardware">Duka la Vifaa vya Ujenzi</option>
+          <option value="stationery">Duka la Vifaa vya Ofisi / Shule</option>
+          <option value="beverage">Duka la Vinywaji</option>
+          <option value="mobile_phone">Duka la Simu na Vifaa vyake</option>
+          <option value="furniture">Duka la Samani</option>
+          <option value="agrovet">Duka la Pembejeo za Kilimo</option>
+          <option value="electronics">Duka la Vifaa vya Umeme (Electronics)</option>
+          <option value="grocery">Duka la Vyakula (Grocery)</option>
+          <option value="shoes">Duka la Viatu</option>
+          <option value="salon">Saluni / Barbershop</option>
+          <option value="printing">Duka la Uchapishaji na Nakala</option>
+          <option value="butchery">Duka la Nyama (Butchery)</option>
+          <option value="fish">Duka la Samaki</option>
+          <option value="spare_parts">Duka la Spare Parts za Magari</option>
+          <option value="solar">Duka la Solar na Betri</option>
+          <option value="paint">Duka la Rangi na Vifaa</option>
+          <option value="optics">Duka la Miwani (Optics)</option>
+          <option value="toys">Duka la Vinyago na Michezo ya Watoto</option>
+        </select>
+      </div>
+
+      <div class="ctrl-group">
+        <label>Ukubwa wa Biashara</label>
+        <select id="bizSize">
+          <option value="small">Biashara Ndogo (Small)</option>
+          <option value="medium">Biashara ya Kati (Medium)</option>
+        </select>
+      </div>
+
+      <div class="ctrl-group">
+        <label>Mkoa / Mji</label>
+        <input type="text" id="location" value="Tanga City" readonly>
+      </div>
+
+      <div class="ctrl-group">
+        <label>Wafanyakazi — Wanaume</label>
+        <input type="number" id="maleWorkers" min="0" max="20" value="1">
+        <span class="error-msg" id="errMale">Ingiza namba sahihi (0–20)</span>
+      </div>
+
+      <div class="ctrl-group">
+        <label>Wafanyakazi — Wanawake</label>
+        <input type="number" id="femaleWorkers" min="0" max="20" value="1">
+        <span class="error-msg" id="errFemale">Ingiza namba sahihi (0–20)</span>
+      </div>
+
+      <div class="ctrl-group">
+        <label>Mshahara kwa Mfanyakazi / Mwezi (TZS)</label>
+        <input type="number" id="salaryInput" min="30000" max="1000000" value="100000">
+        <span class="error-msg" id="errSalary">Ingiza mshahara halisi (min 30,000)</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== LOAN QUESTION ===== -->
+  <div class="loan-row">
+    <div style="font-size:12px; font-weight:700; color:var(--accent); align-self:flex-end; padding-bottom:9px; white-space:nowrap;">
+      💳 Je, biashara ina mkopo (loan)?
+    </div>
+
+    <div class="ctrl-group">
+      <label>Jibu</label>
+      <div class="radio-group">
+        <label><input type="radio" name="hasLoan" value="no" checked onchange="toggleLoan()"> Hapana (Hakuna mkopo)</label>
+        <label><input type="radio" name="hasLoan" value="yes" onchange="toggleLoan()"> Ndiyo (Kuna mkopo)</label>
+      </div>
+    </div>
+
+    <div class="ctrl-group loan-amount-wrap" id="loanAmountWrap">
+      <label>Riba Inayolipwa kwa Mwezi (TZS)</label>
+      <input type="number" id="loanInterest" min="0" value="50000" placeholder="e.g. 50000">
+      <span class="error-msg" id="errLoan">Ingiza riba sahihi</span>
+    </div>
+
+    <div class="loan-note">
+      💡 Kama hakuna mkopo, Riba Iliyolipwa (Interest Paid) itakuwa <strong>0.00</strong> kwenye majedwali yote.
+    </div>
+  </div>
+
+  <!-- ===== FIXED VALUES ===== -->
+  <div class="fixed-row">
+    <div style="font-size:12px; font-weight:700; color:var(--gold); align-self:flex-end; padding-bottom:9px;">
+      🔒 Thamani Zisizobadilika (Sawa kwa Miaka Yote):
+    </div>
+
+    <div class="ctrl-group">
+      <label>Kodi ya Duka kwa Mwezi (TZS)</label>
+      <input type="number" id="rentMonthly" min="0" value="150000" placeholder="e.g. 150000">
+      <span class="error-msg" id="errRent">Ingiza kodi halisi</span>
+    </div>
+
+    <div class="fixed-note">
+      💡 Mishahara na Kodi ya duka huhesabiwa kwa miaka yote (2023, 2024, 2025) bila kubadilika.
+    </div>
+
+    <div class="ctrl-group" style="margin-left:auto;">
+      <label>&nbsp;</label>
+      <button class="btn btn-primary" onclick="generateSurvey()">⚡ Tengeneza Makadirio</button>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD ===== -->
+  <div id="dashSection" style="display:none;">
+    <div class="section-label">Muhtasari — 2025</div>
+    <div class="meta-strip" id="metaStrip"></div>
+    <div class="summary-grid" id="summaryGrid"></div>
+  </div>
+
+  <!-- ===== TABLES ===== -->
+  <div id="tablesSection">
+    <div class="empty-state">
+      <div class="es-icon">📋</div>
+      <p>Weka taarifa za biashara hapo juu kisha bonyeza <strong>Tengeneza Makadirio</strong> ili kupata majedwali ya NBS kwa miaka 2023, 2024 na 2025.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* =============================================================
+   SHOW/HIDE LOAN AMOUNT INPUT
+   ============================================================= */
+function toggleLoan() {
+  const hasLoan = document.querySelector('input[name="hasLoan"]:checked').value === 'yes';
+  const wrap = document.getElementById('loanAmountWrap');
+  wrap.classList.toggle('visible', hasLoan);
+}
+
+/* =============================================================
+   BUSINESS PROFILES  (TZS Millions)
+   ============================================================= */
+const PROFILES = {
+  general_retail: { name:"Duka la Bidhaa Mchanganyiko",   small:{capMin:3, capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8, capMax:20, salesMult:[2.5,4.0]} },
+  cosmetics:      { name:"Duka la Vipodozi",               small:{capMin:3, capMax:8,  salesMult:[1.8,3.0]}, medium:{capMin:8, capMax:15, salesMult:[2.0,3.5]} },
+  pharmacy:       { name:"Duka la Dawa",                   small:{capMin:5, capMax:12, salesMult:[2.5,4.0]}, medium:{capMin:12,capMax:25, salesMult:[3.0,5.0]} },
+  clothing:       { name:"Duka la Mavazi",                 small:{capMin:4, capMax:10, salesMult:[1.5,2.8]}, medium:{capMin:10,capMax:22, salesMult:[2.0,3.5]} },
+  hardware:       { name:"Duka la Vifaa vya Ujenzi",       small:{capMin:10,capMax:15, salesMult:[2.0,3.5]}, medium:{capMin:15,capMax:30, salesMult:[2.5,4.0]} },
+  stationery:     { name:"Duka la Vifaa vya Ofisi/Shule",  small:{capMin:2, capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6, capMax:14, salesMult:[2.5,4.0]} },
+  beverage:       { name:"Duka la Vinywaji",               small:{capMin:3, capMax:9,  salesMult:[2.5,4.5]}, medium:{capMin:9, capMax:20, salesMult:[3.0,5.5]} },
+  mobile_phone:   { name:"Duka la Simu na Vifaa vyake",    small:{capMin:5, capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12,capMax:25, salesMult:[2.5,4.5]} },
+  furniture:      { name:"Duka la Samani",                 small:{capMin:6, capMax:15, salesMult:[1.5,2.5]}, medium:{capMin:15,capMax:35, salesMult:[1.8,3.0]} },
+  agrovet:        { name:"Duka la Pembejeo za Kilimo",     small:{capMin:4, capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10,capMax:22, salesMult:[2.5,4.5]} },
+  electronics:    { name:"Duka la Electronics",            small:{capMin:6, capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14,capMax:30, salesMult:[2.5,4.0]} },
+  grocery:        { name:"Duka la Vyakula (Grocery)",      small:{capMin:3, capMax:8,  salesMult:[3.0,5.0]}, medium:{capMin:8, capMax:18, salesMult:[3.5,6.0]} },
+  shoes:          { name:"Duka la Viatu",                  small:{capMin:3, capMax:9,  salesMult:[1.8,3.0]}, medium:{capMin:9, capMax:20, salesMult:[2.0,3.5]} },
+  salon:          { name:"Saluni / Barbershop",            small:{capMin:1, capMax:4,  salesMult:[3.0,5.5]}, medium:{capMin:4, capMax:10, salesMult:[3.5,6.0]} },
+  printing:       { name:"Duka la Uchapishaji",            small:{capMin:2, capMax:6,  salesMult:[2.5,4.0]}, medium:{capMin:6, capMax:15, salesMult:[3.0,5.0]} },
+  butchery:       { name:"Duka la Nyama (Butchery)",       small:{capMin:2, capMax:7,  salesMult:[4.0,7.0]}, medium:{capMin:7, capMax:18, salesMult:[5.0,8.0]} },
+  fish:           { name:"Duka la Samaki",                 small:{capMin:1, capMax:5,  salesMult:[4.0,7.0]}, medium:{capMin:5, capMax:14, salesMult:[5.0,8.5]} },
+  spare_parts:    { name:"Duka la Spare Parts",            small:{capMin:8, capMax:18, salesMult:[1.8,3.0]}, medium:{capMin:18,capMax:40, salesMult:[2.0,3.5]} },
+  solar:          { name:"Duka la Solar na Betri",         small:{capMin:5, capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12,capMax:28, salesMult:[2.5,4.0]} },
+  paint:          { name:"Duka la Rangi na Vifaa",         small:{capMin:6, capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14,capMax:30, salesMult:[2.5,4.0]} },
+  optics:         { name:"Duka la Miwani (Optics)",        small:{capMin:3, capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8, capMax:18, salesMult:[2.5,4.5]} },
+  toys:           { name:"Duka la Vinyago/Michezo",        small:{capMin:2, capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6, capMax:14, salesMult:[2.5,4.0]} }
+};
+
+/* =============================================================
+   STATISTICAL HELPERS
+   ============================================================= */
+function randomBetween(min, max) { return min + Math.random() * (max - min); }
+
+function confidenceInterval(centre, variationPct) {
+  const delta = centre * (variationPct / 100) * (Math.random() * 2 - 1);
+  return Math.max(0, centre + delta);
+}
+
+function annualGrowth(base, minPct, maxPct) {
+  return base * (1 + randomBetween(minPct, maxPct) / 100);
+}
+
+function r2(v) { return Math.round(v * 100) / 100; }
+function fmt(v) { return r2(Math.abs(v)).toFixed(2); }
+
+/* Sales snapped to 360-day multiple */
+function snapTo360(salesRaw) {
+  const daily = salesRaw / 360;
+  const dailyRounded = Math.round(daily * 10000) / 10000;
+  return r2(dailyRounded * 360);
+}
+
+/* =============================================================
+   VALIDATION
+   ============================================================= */
+function validate() {
+  let ok = true;
+  const male   = parseInt(document.getElementById('maleWorkers').value);
+  const female = parseInt(document.getElementById('femaleWorkers').value);
+  const salary = parseFloat(document.getElementById('salaryInput').value);
+  const rent   = parseFloat(document.getElementById('rentMonthly').value);
+  const hasLoan = document.querySelector('input[name="hasLoan"]:checked').value === 'yes';
+  const loanInt = hasLoan ? parseFloat(document.getElementById('loanInterest').value) : 0;
+
+  const show = (id, v) => { document.getElementById(id).style.display = v ? 'block' : 'none'; };
+
+  if (isNaN(male)   || male < 0   || male > 20)  { show('errMale',   true); ok = false; } else show('errMale',   false);
+  if (isNaN(female) || female < 0 || female > 20) { show('errFemale', true); ok = false; } else show('errFemale', false);
+  if (isNaN(salary) || salary < 30000)            { show('errSalary', true); ok = false; } else show('errSalary', false);
+  if (isNaN(rent)   || rent < 0)                  { show('errRent',   true); ok = false; } else show('errRent',   false);
+  if (hasLoan && (isNaN(loanInt) || loanInt < 0)) { show('errLoan',   true); ok = false; } else show('errLoan',   false);
+
+  return { ok, male, female, salary, rent, hasLoan, loanInt };
+}
+
+/* =============================================================
+   BUILD YEAR DATA
+   fixedWages     — constant (TZS millions) same every year
+   fixedRentPaid  — constant (TZS millions) same every year
+   fixedInterest  — 0 if no loan, else user-defined × 12 (TZS millions)
+   ============================================================= */
+function buildYearData(capital, salesMult, emp, fixedWages, fixedRentPaid, fixedInterest) {
+
+  // Sales — snapped to 360-day multiple
+  const salesRaw = capital * randomBetween(salesMult[0], salesMult[1]);
+  const sales    = snapTo360(confidenceInterval(salesRaw, 4));
+
+  // Receipts (simple — no other income for small/medium)
+  const interestRec = 0;
+  const rentRec     = 0;
+  const subsidies   = 0;
+  const otherIncome = 0;
+  const totalReceipts = r2(sales + interestRec + rentRec + subsidies + otherIncome);
+
+  // Expenditure
+  const wages        = fixedWages;          // FIXED — same every year
+  const interestPaid = fixedInterest;       // 0 if no loan, else FIXED annual interest
+  const rentPaid     = fixedRentPaid;       // FIXED — same every year
+  const depreciation = 0;
+  const miscExp      = r2(sales * randomBetween(0.45, 0.60));
+  const totalExpenditure = r2(wages + interestPaid + rentPaid + depreciation + miscExp);
+
+  // Stock increase
+  const stockIncrease = r2(sales * randomBetween(0.25, 0.40));
+
+  // Profit
+  const profitBeforeTax = r2(totalReceipts - totalExpenditure + stockIncrease);
+  const profitSafe      = Math.max(0, profitBeforeTax);
+
+  // Tax (15%) + small random variation
+  const corporateTax = r2(profitSafe * 0.15 + randomBetween(0.05, 0.10));
+  const dividends    = 0;
+
+  return {
+    workingCapital: r2(capital),
+    maleEmp: emp.male, femaleEmp: emp.female, totalEmp: emp.total,
+    sales, interestRec, rentRec, subsidies, otherIncome, totalReceipts,
+    wages, interestPaid, rentPaid, depreciation, miscExp, totalExpenditure,
+    stockIncrease, profitBeforeTax: r2(profitBeforeTax), corporateTax, dividends
+  };
+}
+
+/* =============================================================
+   MAIN GENERATE
+   ============================================================= */
+function generateSurvey() {
+  const { ok, male, female, salary, rent, hasLoan, loanInt } = validate();
+  if (!ok) return;
+
+  const typeKey  = document.getElementById('bizType').value;
+  const sizeKey  = document.getElementById('bizSize').value;
+  const location = document.getElementById('location').value;
+  const profile  = PROFILES[typeKey];
+  const sizeConf = profile[sizeKey];
+
+  const emp = { male, female, total: male + female };
+
+  // Fixed annual values (TZS Millions)
+  const fixedWages    = r2((salary / 1_000_000) * emp.total * 12);
+  const fixedRentPaid = r2((rent   / 1_000_000) * 12);
+  const fixedInterest = hasLoan ? r2((loanInt / 1_000_000) * 12) : 0;
+
+  const cap2023 = r2(randomBetween(sizeConf.capMin, sizeConf.capMax));
+  const d2023   = buildYearData(cap2023, sizeConf.salesMult, emp, fixedWages, fixedRentPaid, fixedInterest);
+
+  const cap2024 = r2(annualGrowth(cap2023, 5, 20));
+  const d2024   = buildYearData(cap2024, sizeConf.salesMult.map(x => x * randomBetween(1.05, 1.20)), emp, fixedWages, fixedRentPaid, fixedInterest);
+
+  const cap2025 = r2(annualGrowth(cap2024, 5, 20));
+  const d2025   = buildYearData(cap2025, sizeConf.salesMult.map(x => x * randomBetween(1.05, 1.20)), emp, fixedWages, fixedRentPaid, fixedInterest);
+
+  const data = {
+    bizName: profile.name,
+    bizSize: sizeKey === 'small' ? 'Biashara Ndogo' : 'Biashara ya Kati',
+    location, hasLoan,
+    fixedWages, fixedRentPaid, fixedInterest,
+    typeKey, sizeKey,
+    years: { 2023: d2023, 2024: d2024, 2025: d2025 }
+  };
+
+  renderDashboard(data);
+  renderTables(data);
+}
+
+/* =============================================================
+   RENDER DASHBOARD
+   ============================================================= */
+function renderDashboard(data) {
+  const d = data.years[2025];
+  document.getElementById('dashSection').style.display = 'block';
+
+  document.getElementById('metaStrip').innerHTML = `
+    <div class="meta-item">🏪 Biashara: <strong>${data.bizName}</strong></div>
+    <div class="meta-item">📏 Ukubwa: <strong>${data.bizSize}</strong></div>
+    <div class="meta-item">📍 Mkoa: <strong>${data.location}</strong></div>
+    <div class="meta-item">👥 Wafanyakazi: <strong>${d.totalEmp} (${d.maleEmp}W / ${d.femaleEmp}K)</strong></div>
+    <div class="meta-item">🔒 Mishahara/Mwaka: <strong>TZS ${fmt(data.fixedWages)} Mil.</strong></div>
+    <div class="meta-item">🔒 Kodi/Mwaka: <strong>TZS ${fmt(data.fixedRentPaid)} Mil.</strong></div>
+    <div class="meta-item">💳 Mkopo: <strong>${data.hasLoan ? 'Ndiyo — Riba TZS ' + fmt(data.fixedInterest) + ' Mil./Mwaka' : 'Hapana'}</strong></div>
+  `;
+
+  const cards = [
+    { label:'Mtaji (Capital)',       value: d.workingCapital,   cls:'accent' },
+    { label:'Mauzo (Sales)',         value: d.sales,            cls:'gold'   },
+    { label:'Mapato Jumla',          value: d.totalReceipts,    cls:'green'  },
+    { label:'Matumizi Jumla',        value: d.totalExpenditure, cls:''       },
+    { label:'Faida Kabla ya Kodi',   value: d.profitBeforeTax,  cls: d.profitBeforeTax >= 0 ? 'green' : 'red' },
+    { label:'Kodi ya Kampuni (15%)', value: d.corporateTax,     cls:'red'    }
+  ];
+  document.getElementById('summaryGrid').innerHTML = cards.map(c => `
+    <div class="kpi-card ${c.cls}">
+      <div class="kpi-label">${c.label}</div>
+      <div class="kpi-value">${fmt(c.value)}</div>
+      <div class="kpi-unit">TZS Million (2025)</div>
+    </div>`).join('');
+}
+
+/* =============================================================
+   RENDER TABLES
+   ============================================================= */
+function renderTables(data) {
+  const years = [2023, 2024, 2025];
+  const yrs   = data.years;
+
+  const yHead = `<thead><tr>
+    <th style="text-align:left;">Kipengele / Item</th>
+    ${years.map(y => `<th>${y} (TZS Mil.)</th>`).join('')}
+  </tr></thead>`;
+
+  // TABLE 1 — General Info
+  const tbl1 = card(1, 'TAARIFA ZA JUMLA', 'General Information — Mtaji na Wafanyakazi',
+    `<table class="survey">${yHead}<tbody>
+      <tr><td>Mtaji wa Kufanyia Kazi (Working Capital)</td>${years.map(y=>`<td>${fmt(yrs[y].workingCapital)}</td>`).join('')}</tr>
+      <tr><td>Wafanyakazi Wanaume (Male Employees)</td>${years.map(y=>`<td>${yrs[y].maleEmp}</td>`).join('')}</tr>
+      <tr><td>Wafanyakazi Wanawake (Female Employees)</td>${years.map(y=>`<td>${yrs[y].femaleEmp}</td>`).join('')}</tr>
+      <tr><td>Jumla ya Wafanyakazi (Total Employees)</td>${years.map(y=>`<td>${yrs[y].totalEmp}</td>`).join('')}</tr>
+    </tbody></table>`
+  );
+
+  // TABLE 2 — Receipts
+  const tbl2 = card(2, 'MAPATO (RECEIPTS)', 'Mauzo na Vyanzo Vingine vya Mapato',
+    `<table class="survey">${yHead}<tbody>
+      <tr><td>Mauzo (Income from Sales)</td>${years.map(y=>`<td>${fmt(yrs[y].sales)}</td>`).join('')}</tr>
+      <tr><td>Riba Iliyopokelewa (Interest Received)</td>${years.map(y=>`<td>${fmt(yrs[y].interestRec)}</td>`).join('')}</tr>
+      <tr><td>Kodi Iliyopokelewa (Rent Received)</td>${years.map(y=>`<td>${fmt(yrs[y].rentRec)}</td>`).join('')}</tr>
+      <tr><td>Ruzuku (Subsidies Received)</td>${years.map(y=>`<td>${fmt(yrs[y].subsidies)}</td>`).join('')}</tr>
+      <tr><td>Mapato Mengine (Other Income)</td>${years.map(y=>`<td>${fmt(yrs[y].otherIncome)}</td>`).join('')}</tr>
+    </tbody>
+    <tfoot><tr><td>JUMLA YA MAPATO (TOTAL RECEIPTS)</td>${years.map(y=>`<td>${fmt(yrs[y].totalReceipts)}</td>`).join('')}</tr></tfoot>
+    </table>`
+  );
+
+  // TABLE 3 — Expenditure
+  // Interest paid label changes based on loan status
+  const interestLabel = data.hasLoan
+    ? `Riba Iliyolipwa — Mkopo (Interest Paid) <span class="fixed-tag">FIXED</span>`
+    : `Riba Iliyolipwa (Interest Paid) <span style="font-size:10px;color:var(--ink-light);font-style:italic;"> — Hakuna mkopo</span>`;
+
+  const tbl3 = card(3, 'MATUMIZI (EXPENDITURE)', 'Mishahara, Kodi, Riba na Gharama Nyingine',
+    `<table class="survey">${yHead}<tbody>
+      <tr>
+        <td>Mishahara (Wages &amp; Salaries) <span class="fixed-tag">FIXED</span></td>
+        ${years.map(y=>`<td>${fmt(yrs[y].wages)}</td>`).join('')}
+      </tr>
+      <tr>
+        <td>${interestLabel}</td>
+        ${years.map(y=>`<td>${fmt(yrs[y].interestPaid)}</td>`).join('')}
+      </tr>
+      <tr>
+        <td>Kodi Iliyolipwa (Rent Paid) <span class="fixed-tag">FIXED</span></td>
+        ${years.map(y=>`<td>${fmt(yrs[y].rentPaid)}</td>`).join('')}
+      </tr>
+      <tr><td>Uchakavu (Depreciation)</td>${years.map(y=>`<td>${fmt(yrs[y].depreciation)}</td>`).join('')}</tr>
+      <tr><td>Gharama Mbalimbali (Miscellaneous Expenditure)</td>${years.map(y=>`<td>${fmt(yrs[y].miscExp)}</td>`).join('')}</tr>
+    </tbody>
+    <tfoot><tr><td>JUMLA YA MATUMIZI (TOTAL EXPENDITURE)</td>${years.map(y=>`<td>${fmt(yrs[y].totalExpenditure)}</td>`).join('')}</tr></tfoot>
+    </table>`
+  );
+
+  // TABLE 4 — Profit & Tax
+  const tbl4 = card(4, 'FAIDA NA KODI (PROFIT & TAX)', 'Faida Kabla ya Kodi · Kodi ya Kampuni',
+    `<table class="survey">${yHead}<tbody>
+      <tr><td>Ongezeko la Hisa (Increase in Stocks)</td>${years.map(y=>`<td>${fmt(yrs[y].stockIncrease)}</td>`).join('')}</tr>
+      <tr><td>Faida Kabla ya Kodi (Profit Before Tax)</td>${years.map(y => {
+        const cls = yrs[y].profitBeforeTax >= 0 ? 'val-positive' : 'val-negative';
+        return `<td class="${cls}">${fmt(yrs[y].profitBeforeTax)}</td>`;
+      }).join('')}</tr>
+      <tr><td>Kodi ya Kampuni — 15% (Corporate Tax)</td>${years.map(y=>`<td class="val-negative">${fmt(yrs[y].corporateTax)}</td>`).join('')}</tr>
+      <tr><td>Gawio (Dividends)</td>${years.map(y=>`<td>${fmt(yrs[y].dividends)}</td>`).join('')}</tr>
+    </tbody></table>`
+  );
+
+  document.getElementById('tablesSection').innerHTML = `
+    <div class="section-label">Majedwali ya Utafiti — ${data.bizName} · ${data.bizSize} · ${data.location}</div>
+    <div class="tables-wrapper">${tbl1}${tbl2}${tbl3}${tbl4}</div>
+  `;
+}
+
+function card(num, title, sub, tableHTML) {
+  return `<div class="survey-table-card">
+    <div class="stc-header">
+      <div class="tbl-num">${num}</div>
+      <div>
+        <div class="tbl-title">JEDWALI ${num} — ${title}</div>
+        <div class="tbl-sub">${sub}</div>
+      </div>
+    </div>
+    <div class="tbl-scroll">${tableHTML}</div>
+  </div>`;
+}
+</script>
+</body>
+</html>
