@@ -172,28 +172,53 @@
       <div class="ctrl-group">
         <label>Aina ya Biashara</label>
         <select id="bizType">
-          <option value="general_retail">Duka la Bidhaa Mchanganyiko</option>
-          <option value="cosmetics">Duka la Vipodozi</option>
-          <option value="pharmacy">Duka la Dawa</option>
-          <option value="clothing">Duka la Mavazi</option>
-          <option value="hardware">Duka la Vifaa vya Ujenzi</option>
-          <option value="stationery">Duka la Vifaa vya Ofisi / Shule</option>
-          <option value="beverage">Duka la Vinywaji</option>
-          <option value="mobile_phone">Duka la Simu na Vifaa vyake</option>
-          <option value="furniture">Duka la Samani</option>
-          <option value="agrovet">Duka la Pembejeo za Kilimo</option>
-          <option value="electronics">Duka la Vifaa vya Umeme (Electronics)</option>
-          <option value="grocery">Duka la Vyakula (Grocery)</option>
-          <option value="shoes">Duka la Viatu</option>
-          <option value="salon">Saluni / Barbershop</option>
-          <option value="printing">Duka la Uchapishaji na Nakala</option>
-          <option value="butchery">Duka la Nyama (Butchery)</option>
-          <option value="fish">Duka la Samaki</option>
-          <option value="spare_parts">Duka la Spare Parts za Magari</option>
-          <option value="solar">Duka la Solar na Betri</option>
-          <option value="paint">Duka la Rangi na Vifaa</option>
-          <option value="optics">Duka la Miwani (Optics)</option>
-          <option value="toys">Duka la Vinyago na Michezo ya Watoto</option>
+          <!-- ZILIZOKUWEPO -->
+<option value="general_retail">Duka la Bidhaa Mchanganyiko</option>
+<option value="cosmetics">Duka la Vipodozi</option>
+<option value="pharmacy">Duka la Dawa</option>
+<option value="clothing">Duka la Mavazi</option>
+<option value="hardware">Duka la Vifaa vya Ujenzi</option>
+<option value="stationery">Duka la Vifaa vya Ofisi / Shule</option>
+<option value="beverage">Duka la Vinywaji</option>
+<option value="mobile_phone">Duka la Simu na Vifaa vyake</option>
+<option value="furniture">Duka la Samani</option>
+<option value="agrovet">Duka la Pembejeo za Kilimo</option>
+<option value="electronics">Duka la Electronics</option>
+<option value="grocery">Duka la Vyakula (Grocery)</option>
+<option value="shoes">Duka la Viatu</option>
+<option value="salon">Saluni / Barbershop</option>
+<option value="printing">Duka la Uchapishaji</option>
+<option value="butchery">Duka la Nyama (Butchery)</option>
+<option value="fish">Duka la Samaki</option>
+<option value="spare_parts">Duka la Spare Parts za Magari</option>
+<option value="solar">Duka la Solar na Betri</option>
+<option value="paint">Duka la Rangi na Vifaa</option>
+<!-- MPYA -->
+<option value="optics">Duka la Miwani (Optics)</option>
+<option value="toys">Duka la Vinyago na Michezo</option>
+<option value="supermarket">Supermarket / Minishop</option>
+<option value="wholesale">Ghala la Jumla (Wholesale)</option>
+<option value="hotel">Hoteli / Gesti</option>
+<option value="restaurant">Mkahawa / Restaurant</option>
+<option value="bakery">Mkate na Mikate (Bakery)</option>
+<option value="water">Duka la Maji (Water Depot)</option>
+<option value="gas">Duka la Gesi (LPG / Mafuta)</option>
+<option value="pesticides">Duka la Dawa za Kilimo</option>
+<option value="seeds">Duka la Mbegu za Kilimo</option>
+<option value="tailoring">Ushonaji wa Nguo (Tailoring)</option>
+<option value="laundry">Dobi / Laundry</option>
+<option value="photostudio">Studio ya Picha (Photo Studio)</option>
+<option value="cybercafe">Cyber Cafe / Internet Cafe</option>
+<option value="mpesa">Wakala wa Fedha (M-Pesa/Tigopesa)</option>
+<option value="bookshop">Duka la Vitabu (Bookshop)</option>
+<option value="tyreshop">Duka la Tairi na Magurudumu</option>
+<option value="garage">Gereji / Karakana ya Magari</option>
+<option value="welding">Useremala / Uchawi wa Chuma</option>
+<option value="phone_repair">Ufundi wa Simu (Phone Repair)</option>
+<option value="electricals">Duka la Vifaa vya Umeme</option>
+<option value="plumbing">Duka la Vifaa vya Maji (Plumbing)</option>
+<option value="charcoal">Duka la Mkaa na Kuni</option>
+<option value="secondhand">Duka la Mitumba (Second Hand)</option>
         </select>
       </div>
 
@@ -309,28 +334,54 @@ function toggleLoan() {
    BUSINESS PROFILES  (TZS Millions)
    ============================================================= */
 const PROFILES = {
-  general_retail: { name:"Duka la Bidhaa Mchanganyiko",   small:{capMin:3, capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8, capMax:20, salesMult:[2.5,4.0]} },
-  cosmetics:      { name:"Duka la Vipodozi",               small:{capMin:3, capMax:8,  salesMult:[1.8,3.0]}, medium:{capMin:8, capMax:15, salesMult:[2.0,3.5]} },
-  pharmacy:       { name:"Duka la Dawa",                   small:{capMin:5, capMax:12, salesMult:[2.5,4.0]}, medium:{capMin:12,capMax:25, salesMult:[3.0,5.0]} },
-  clothing:       { name:"Duka la Mavazi",                 small:{capMin:4, capMax:10, salesMult:[1.5,2.8]}, medium:{capMin:10,capMax:22, salesMult:[2.0,3.5]} },
-  hardware:       { name:"Duka la Vifaa vya Ujenzi",       small:{capMin:10,capMax:15, salesMult:[2.0,3.5]}, medium:{capMin:15,capMax:30, salesMult:[2.5,4.0]} },
-  stationery:     { name:"Duka la Vifaa vya Ofisi/Shule",  small:{capMin:2, capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6, capMax:14, salesMult:[2.5,4.0]} },
-  beverage:       { name:"Duka la Vinywaji",               small:{capMin:3, capMax:9,  salesMult:[2.5,4.5]}, medium:{capMin:9, capMax:20, salesMult:[3.0,5.5]} },
-  mobile_phone:   { name:"Duka la Simu na Vifaa vyake",    small:{capMin:5, capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12,capMax:25, salesMult:[2.5,4.5]} },
-  furniture:      { name:"Duka la Samani",                 small:{capMin:6, capMax:15, salesMult:[1.5,2.5]}, medium:{capMin:15,capMax:35, salesMult:[1.8,3.0]} },
-  agrovet:        { name:"Duka la Pembejeo za Kilimo",     small:{capMin:4, capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10,capMax:22, salesMult:[2.5,4.5]} },
-  electronics:    { name:"Duka la Electronics",            small:{capMin:6, capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14,capMax:30, salesMult:[2.5,4.0]} },
-  grocery:        { name:"Duka la Vyakula (Grocery)",      small:{capMin:3, capMax:8,  salesMult:[3.0,5.0]}, medium:{capMin:8, capMax:18, salesMult:[3.5,6.0]} },
-  shoes:          { name:"Duka la Viatu",                  small:{capMin:3, capMax:9,  salesMult:[1.8,3.0]}, medium:{capMin:9, capMax:20, salesMult:[2.0,3.5]} },
-  salon:          { name:"Saluni / Barbershop",            small:{capMin:1, capMax:4,  salesMult:[3.0,5.5]}, medium:{capMin:4, capMax:10, salesMult:[3.5,6.0]} },
-  printing:       { name:"Duka la Uchapishaji",            small:{capMin:2, capMax:6,  salesMult:[2.5,4.0]}, medium:{capMin:6, capMax:15, salesMult:[3.0,5.0]} },
-  butchery:       { name:"Duka la Nyama (Butchery)",       small:{capMin:2, capMax:7,  salesMult:[4.0,7.0]}, medium:{capMin:7, capMax:18, salesMult:[5.0,8.0]} },
-  fish:           { name:"Duka la Samaki",                 small:{capMin:1, capMax:5,  salesMult:[4.0,7.0]}, medium:{capMin:5, capMax:14, salesMult:[5.0,8.5]} },
-  spare_parts:    { name:"Duka la Spare Parts",            small:{capMin:8, capMax:18, salesMult:[1.8,3.0]}, medium:{capMin:18,capMax:40, salesMult:[2.0,3.5]} },
-  solar:          { name:"Duka la Solar na Betri",         small:{capMin:5, capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12,capMax:28, salesMult:[2.5,4.0]} },
-  paint:          { name:"Duka la Rangi na Vifaa",         small:{capMin:6, capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14,capMax:30, salesMult:[2.5,4.0]} },
-  optics:         { name:"Duka la Miwani (Optics)",        small:{capMin:3, capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8, capMax:18, salesMult:[2.5,4.5]} },
-  toys:           { name:"Duka la Vinyago/Michezo",        small:{capMin:2, capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6, capMax:14, salesMult:[2.5,4.0]} }
+  // ── ZILIZOKUWEPO ──────────────────────────────────────────────
+  general_retail:  { name:"Duka la Bidhaa Mchanganyiko",        small:{capMin:3,  capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8,  capMax:20, salesMult:[2.5,4.0]} },
+  cosmetics:       { name:"Duka la Vipodozi",                   small:{capMin:3,  capMax:8,  salesMult:[1.8,3.0]}, medium:{capMin:8,  capMax:15, salesMult:[2.0,3.5]} },
+  pharmacy:        { name:"Duka la Dawa",                       small:{capMin:5,  capMax:12, salesMult:[2.5,4.0]}, medium:{capMin:12, capMax:25, salesMult:[3.0,5.0]} },
+  clothing:        { name:"Duka la Mavazi",                     small:{capMin:5,  capMax:10, salesMult:[1.5,2.8]}, medium:{capMin:15, capMax:27, salesMult:[2.0,3.5]} },
+  hardware:        { name:"Duka la Vifaa vya Ujenzi",           small:{capMin:10, capMax:15, salesMult:[2.0,3.5]}, medium:{capMin:15, capMax:30, salesMult:[2.5,4.0]} },
+  stationery:      { name:"Duka la Vifaa vya Ofisi/Shule",      small:{capMin:2,  capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6,  capMax:14, salesMult:[2.5,4.0]} },
+  beverage:        { name:"Duka la Vinywaji",                   small:{capMin:3,  capMax:9,  salesMult:[2.5,4.5]}, medium:{capMin:9,  capMax:20, salesMult:[3.0,5.5]} },
+  mobile_phone:    { name:"Duka la Simu na Vifaa vyake",        small:{capMin:5,  capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:25, salesMult:[2.5,4.5]} },
+  furniture:       { name:"Duka la Samani",                     small:{capMin:6,  capMax:15, salesMult:[1.5,2.5]}, medium:{capMin:15, capMax:35, salesMult:[1.8,3.0]} },
+  agrovet:         { name:"Duka la Pembejeo za Kilimo",         small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:22, salesMult:[2.5,4.5]} },
+  electronics:     { name:"Duka la Electronics",                small:{capMin:6,  capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14, capMax:30, salesMult:[2.5,4.0]} },
+  grocery:         { name:"Duka la Vyakula (Grocery)",          small:{capMin:3,  capMax:8,  salesMult:[3.0,5.0]}, medium:{capMin:8,  capMax:18, salesMult:[3.5,6.0]} },
+  shoes:           { name:"Duka la Viatu",                      small:{capMin:3,  capMax:9,  salesMult:[1.8,3.0]}, medium:{capMin:9,  capMax:20, salesMult:[2.0,3.5]} },
+  salon:           { name:"Saluni / Barbershop",                small:{capMin:1,  capMax:4,  salesMult:[3.0,5.5]}, medium:{capMin:4,  capMax:10, salesMult:[3.5,6.0]} },
+  printing:        { name:"Duka la Uchapishaji",                small:{capMin:2,  capMax:6,  salesMult:[2.5,4.0]}, medium:{capMin:6,  capMax:15, salesMult:[3.0,5.0]} },
+  butchery:        { name:"Duka la Nyama (Butchery)",           small:{capMin:2,  capMax:7,  salesMult:[4.0,7.0]}, medium:{capMin:7,  capMax:18, salesMult:[5.0,8.0]} },
+  fish:            { name:"Duka la Samaki",                     small:{capMin:1,  capMax:5,  salesMult:[4.0,7.0]}, medium:{capMin:5,  capMax:14, salesMult:[5.0,8.5]} },
+  spare_parts:     { name:"Duka la Spare Parts za Magari",      small:{capMin:8,  capMax:18, salesMult:[1.8,3.0]}, medium:{capMin:18, capMax:40, salesMult:[2.0,3.5]} },
+  solar:           { name:"Duka la Solar na Betri",             small:{capMin:5,  capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:28, salesMult:[2.5,4.0]} },
+  paint:           { name:"Duka la Rangi na Vifaa",             small:{capMin:6,  capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14, capMax:30, salesMult:[2.5,4.0]} },
+
+  // ── MPYA ZILIZOONGEZWA ─────────────────────────────────────────
+  optics:          { name:"Duka la Miwani (Optics)",            small:{capMin:3,  capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8,  capMax:18, salesMult:[2.5,4.5]} },
+  toys:            { name:"Duka la Vinyago na Michezo",         small:{capMin:2,  capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6,  capMax:14, salesMult:[2.5,4.0]} },
+  supermarket:     { name:"Supermarket / Minishop",             small:{capMin:15, capMax:30, salesMult:[3.5,6.0]}, medium:{capMin:30, capMax:80, salesMult:[4.0,7.0]} },
+  wholesale:       { name:"Ghala la Jumla (Wholesale)",         small:{capMin:20, capMax:50, salesMult:[2.0,3.5]}, medium:{capMin:50, capMax:150,salesMult:[2.5,4.0]} },
+  hotel:           { name:"Hoteli / Gesti",                     small:{capMin:5,  capMax:15, salesMult:[2.5,4.5]}, medium:{capMin:15, capMax:40, salesMult:[3.0,5.5]} },
+  restaurant:      { name:"Mkahawa / Restaurant",               small:{capMin:2,  capMax:8,  salesMult:[3.0,5.5]}, medium:{capMin:8,  capMax:20, salesMult:[3.5,6.5]} },
+  bakery:          { name:"Mkate na Mikate (Bakery)",            small:{capMin:2,  capMax:7,  salesMult:[3.0,5.0]}, medium:{capMin:7,  capMax:18, salesMult:[3.5,6.0]} },
+  water:           { name:"Duka la Maji (Water Depot)",         small:{capMin:2,  capMax:6,  salesMult:[3.5,6.0]}, medium:{capMin:6,  capMax:15, salesMult:[4.0,7.0]} },
+  gas:             { name:"Duka la Gesi (LPG / Mafuta)",        small:{capMin:3,  capMax:9,  salesMult:[3.0,5.5]}, medium:{capMin:9,  capMax:22, salesMult:[3.5,6.5]} },
+  pesticides:      { name:"Duka la Dawa za Kilimo (Pesticides)",small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:24, salesMult:[2.5,4.5]} },
+  seeds:           { name:"Duka la Mbegu za Kilimo",            small:{capMin:3,  capMax:9,  salesMult:[2.0,3.5]}, medium:{capMin:9,  capMax:22, salesMult:[2.5,4.5]} },
+  tailoring:       { name:"Ushonaji wa Nguo (Tailoring)",       small:{capMin:1,  capMax:5,  salesMult:[2.5,4.5]}, medium:{capMin:5,  capMax:14, salesMult:[3.0,5.5]} },
+  laundry:         { name:"Dobi / Laundry",                     small:{capMin:1,  capMax:4,  salesMult:[3.0,5.5]}, medium:{capMin:4,  capMax:10, salesMult:[3.5,6.0]} },
+  photostudio:     { name:"Studio ya Picha (Photo Studio)",     small:{capMin:2,  capMax:6,  salesMult:[2.5,4.5]}, medium:{capMin:6,  capMax:14, salesMult:[3.0,5.5]} },
+  cybercafe:       { name:"Cyber Cafe / Internet Cafe",         small:{capMin:1,  capMax:5,  salesMult:[2.5,4.5]}, medium:{capMin:5,  capMax:12, salesMult:[3.0,5.5]} },
+  mpesa:           { name:"Wakala wa Fedha (M-Pesa/Tigopesa)",  small:{capMin:2,  capMax:6,  salesMult:[3.0,5.5]}, medium:{capMin:6,  capMax:15, salesMult:[3.5,6.5]} },
+  bookshop:        { name:"Duka la Vitabu (Bookshop)",          small:{capMin:2,  capMax:6,  salesMult:[1.8,3.0]}, medium:{capMin:6,  capMax:14, salesMult:[2.0,3.5]} },
+  tyreshop:        { name:"Duka la Tairi na Magurudumu",        small:{capMin:5,  capMax:12, salesMult:[1.8,3.0]}, medium:{capMin:12, capMax:28, salesMult:[2.0,3.5]} },
+  garage:          { name:"Gereji / Karakana ya Magari",        small:{capMin:4,  capMax:12, salesMult:[2.0,4.0]}, medium:{capMin:12, capMax:30, salesMult:[2.5,5.0]} },
+  welding:         { name:"Useremala / Uchawi wa Chuma",        small:{capMin:2,  capMax:7,  salesMult:[2.0,4.0]}, medium:{capMin:7,  capMax:18, salesMult:[2.5,4.5]} },
+  phone_repair:    { name:"Ufundi wa Simu (Phone Repair)",      small:{capMin:1,  capMax:4,  salesMult:[2.5,4.5]}, medium:{capMin:4,  capMax:10, salesMult:[3.0,5.5]} },
+  electricals:     { name:"Duka la Vifaa vya Umeme (Electrical)",small:{capMin:4, capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:28, salesMult:[2.5,4.0]} },
+  plumbing:        { name:"Duka la Vifaa vya Maji (Plumbing)",  small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:24, salesMult:[2.5,4.0]} },
+  charcoal:        { name:"Duka la Mkaa na Kuni",               small:{capMin:1,  capMax:4,  salesMult:[4.0,7.0]}, medium:{capMin:4,  capMax:10, salesMult:[5.0,8.0]} },
+  secondhand:      { name:"Duka la Mitumba (Second Hand)",      small:{capMin:2,  capMax:7,  salesMult:[2.0,4.0]}, medium:{capMin:7,  capMax:18, salesMult:[2.5,4.5]} },
 };
 
 /* =============================================================
