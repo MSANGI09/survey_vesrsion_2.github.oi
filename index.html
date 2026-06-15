@@ -462,7 +462,9 @@ function buildYearData(capital, salesMult, emp, fixedWages, fixedRentPaid, fixed
   const stockIncrease = r2(sales * randomBetween(0.25, 0.40));
 
   // Profit
-  const profitBeforeTax = r2(totalReceipts - totalExpenditure + stockIncrease);
+  const profitBeforeTax = r2(totalReceipts - totalExpenditure)
+                            
+  );
   const profitSafe      = Math.max(0, profitBeforeTax);
 
   // Tax (15%) + small random variation
