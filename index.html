@@ -17,15 +17,18 @@
     --gold:      #c08a1e;
     --gold-lt:   #fff7e0;
     --green:     #1a7a4a;
+    --green-lt:  #e8f7ef;
     --red:       #c0331e;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
     --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.22);
     --r: 6px;
     --mono: 'Courier New', Courier, monospace;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--paper); color: var(--ink); font-size: 14px; line-height: 1.55; }
 
+  /* ── HEADER ── */
   .app-header {
     background: var(--ink); color: #fff; padding: 0 32px;
     display: flex; align-items: center; justify-content: space-between;
@@ -40,6 +43,7 @@
 
   .app-body { max-width: 1150px; margin: 0 auto; padding: 28px 20px 60px; }
 
+  /* ── CONTROL PANEL ── */
   .control-panel {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--r); padding: 22px 24px; margin-bottom: 20px; box-shadow: var(--shadow-sm);
@@ -61,7 +65,7 @@
   .ctrl-group input  { min-width: 130px; }
   .ctrl-group select:focus, .ctrl-group input:focus { border-color: var(--accent); background: #fff; }
 
-  /* Loan question row */
+  /* ── LOAN ROW ── */
   .loan-row {
     background: #eef6ff; border: 1px solid #b6d0f5;
     border-radius: var(--r); padding: 14px 18px; margin-bottom: 20px;
@@ -70,7 +74,7 @@
   .loan-row .ctrl-group label { color: var(--accent); }
   .loan-note { font-size: 11px; color: var(--accent); align-self: flex-end; padding-bottom: 9px; font-style: italic; }
 
-  /* Fixed values row */
+  /* ── FIXED ROW ── */
   .fixed-row {
     background: var(--gold-lt); border: 1px solid #e8c96a;
     border-radius: var(--r); padding: 14px 18px; margin-bottom: 20px;
@@ -79,14 +83,14 @@
   .fixed-row .ctrl-group label { color: var(--gold); }
   .fixed-note { font-size: 11px; color: var(--gold); align-self: flex-end; padding-bottom: 9px; font-style: italic; }
 
-  /* Radio toggle for loan */
+  /* ── RADIO ── */
   .radio-group { display: flex; gap: 10px; align-items: center; padding: 8px 0; }
   .radio-group label { font-size: 13px; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--ink); display: flex; align-items: center; gap: 5px; cursor: pointer; }
   .radio-group input[type=radio] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
-
   .loan-amount-wrap { display: none; }
   .loan-amount-wrap.visible { display: flex; flex-direction: column; gap: 5px; }
 
+  /* ── BUTTONS ── */
   .btn {
     display: inline-flex; align-items: center; gap: 7px;
     padding: 9px 22px; border: none; border-radius: var(--r);
@@ -96,9 +100,13 @@
   .btn:active { transform: scale(.97); }
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { opacity: .88; }
+  .btn-green  { background: var(--green); color: #fff; min-width: 140px; justify-content: center; }
+  .btn-green:hover { opacity: .88; }
+  .btn-outline { background: var(--surface); color: var(--ink-mid); border: 1.5px solid var(--border); min-width: 140px; justify-content: center; }
+  .btn-outline:hover { background: var(--paper); }
 
+  /* ── DASHBOARD ── */
   .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); margin-bottom: 12px; }
-
   .summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: 14px; margin-bottom: 24px; }
   .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; box-shadow: var(--shadow-sm); }
   .kpi-card .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--ink-light); margin-bottom: 6px; }
@@ -116,6 +124,7 @@
   }
   .meta-strip .meta-item strong { color: var(--accent); }
 
+  /* ── TABLES ── */
   .tables-wrapper { display: flex; flex-direction: column; gap: 22px; }
   .survey-table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-sm); overflow: hidden; }
   .stc-header { background: var(--ink); color: #fff; padding: 12px 20px; display: flex; align-items: center; gap: 12px; }
@@ -138,13 +147,125 @@
   .val-positive { color: var(--green) !important; }
   .val-negative { color: var(--red) !important; }
   .fixed-tag { font-size: 9px; background: var(--gold-lt); color: var(--gold); border: 1px solid #e8c96a; border-radius: 3px; padding: 1px 5px; margin-left: 6px; font-weight: 700; vertical-align: middle; }
+  .stock-tag { font-size: 9px; background: var(--green-lt); color: var(--green); border: 1px solid #9fd4ba; border-radius: 3px; padding: 1px 5px; margin-left: 6px; font-weight: 700; vertical-align: middle; }
 
   .empty-state { text-align: center; padding: 60px 20px; color: var(--ink-light); }
   .empty-state .es-icon { font-size: 48px; margin-bottom: 12px; }
   .error-msg { color: var(--red); font-size: 11px; margin-top: 3px; display: none; }
 
+  /* ═══════════════════════════════════════════════
+     MODAL — STOCK INCREASE POPUP
+  ═══════════════════════════════════════════════ */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(10,20,35,0.55);
+    backdrop-filter: blur(3px);
+    z-index: 999;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity .22s ease;
+  }
+  .modal-backdrop.open { opacity: 1; pointer-events: all; }
+
+  .modal-box {
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: var(--shadow-xl);
+    width: 100%; max-width: 480px;
+    margin: 16px;
+    transform: translateY(24px) scale(.97);
+    transition: transform .25s ease, opacity .25s ease;
+    opacity: 0;
+    overflow: hidden;
+  }
+  .modal-backdrop.open .modal-box {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  /* Modal header stripe */
+  .modal-header {
+    background: linear-gradient(135deg, #1355c4 0%, #0d3d99 100%);
+    padding: 20px 24px 18px;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .modal-header .modal-icon {
+    font-size: 32px; line-height: 1; flex-shrink: 0; margin-top: 2px;
+  }
+  .modal-header-text h3 {
+    font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px;
+  }
+  .modal-header-text p {
+    font-size: 12px; color: #b8ccf0; line-height: 1.5;
+  }
+
+  /* Modal body */
+  .modal-body { padding: 22px 24px; }
+
+  .modal-explain {
+    background: var(--paper); border: 1px solid var(--border);
+    border-radius: var(--r); padding: 13px 15px;
+    font-size: 12px; color: var(--ink-mid); margin-bottom: 20px;
+    line-height: 1.65;
+  }
+  .modal-explain strong { color: var(--ink); }
+
+  /* Choice cards */
+  .choice-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+
+  .choice-card {
+    border: 2px solid var(--border); border-radius: 8px;
+    padding: 14px 16px; cursor: pointer;
+    display: flex; align-items: flex-start; gap: 12px;
+    transition: border-color .15s, background .15s;
+    position: relative;
+  }
+  .choice-card:hover { border-color: var(--accent); background: var(--accent-lt); }
+  .choice-card.selected { border-color: var(--accent); background: var(--accent-lt); }
+  .choice-card.selected-green { border-color: var(--green); background: var(--green-lt); }
+
+  .choice-card input[type=radio] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+  .choice-icon { font-size: 26px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
+
+  .choice-text .choice-title {
+    font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 3px;
+  }
+  .choice-text .choice-desc {
+    font-size: 11px; color: var(--ink-light); line-height: 1.5;
+  }
+
+  .choice-check {
+    margin-left: auto; width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0; margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, border-color .15s;
+    font-size: 11px; color: transparent;
+  }
+  .choice-card.selected .choice-check { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .choice-card.selected-green .choice-check { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* Modal footer */
+  .modal-footer {
+    padding: 14px 24px 20px;
+    display: flex; gap: 10px; justify-content: flex-end;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Formula preview badge */
+  .formula-badge {
+    background: #1d1d2e; color: #e0e8ff;
+    border-radius: 6px; padding: 10px 14px;
+    font-family: var(--mono); font-size: 11px;
+    line-height: 1.7; margin-bottom: 18px;
+  }
+  .formula-badge .f-green { color: #6ee89e; }
+  .formula-badge .f-yellow { color: #ffd466; }
+  .formula-badge .f-red { color: #ff9090; }
+  .formula-badge .f-dim { color: #7a8fa6; }
+
   @media print {
-    .app-header, .control-panel, .loan-row, .fixed-row { display: none !important; }
+    .app-header, .control-panel, .loan-row, .fixed-row, .modal-backdrop { display: none !important; }
     .app-body { padding: 0; }
     .survey-table-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
   }
@@ -152,10 +273,76 @@
     .app-header { padding: 0 12px; }
     .app-body { padding: 14px 10px 40px; }
     .ctrl-group select { min-width: 160px; }
+    .modal-footer { flex-direction: column; }
+    .modal-footer .btn { width: 100%; }
   }
 </style>
 </head>
 <body>
+
+<!-- ═══════════════════════ STOCK MODAL ═══════════════════════ -->
+<div class="modal-backdrop" id="stockModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <div class="modal-icon">📦</div>
+      <div class="modal-header-text">
+        <h3>Je, tumijumuishe Ongezeko la Hisa?</h3>
+        <p>Chagua jinsi ya kuhesabu Faida Kabla ya Kodi (Profit Before Tax) kwa biashara hii.</p>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="modal-explain">
+        <strong>Ongezeko la Hisa (Increase in Stocks)</strong> ni thamani ya bidhaa/hisa zilizoongezeka dukani mwaka huo.<br><br>
+        Biashara kama vile <strong>maduka ya rejareja, dawa, vifaa vya ujenzi, chakula</strong> zinaweza kuwa na ongezeko hili. Lakini <strong>huduma kama saluni, cyber cafe, gereji, studio ya picha</strong> hazina hisa za bidhaa hivyo <em>hazipaswi</em> kuijumuisha.
+      </div>
+
+      <!-- Live formula preview -->
+      <div class="formula-badge" id="formulaPreview">
+        <span class="f-dim">-- Chagua hapa chini kuona formula --</span>
+      </div>
+
+      <div class="choice-cards">
+
+        <!-- Option A: Include stock -->
+        <label class="choice-card" id="cardYes" onclick="selectStock('yes')">
+          <input type="radio" name="stockChoice" value="yes">
+          <div class="choice-icon">✅</div>
+          <div class="choice-text">
+            <div class="choice-title">Ndiyo — Jumuisha Ongezeko la Hisa</div>
+            <div class="choice-desc">Biashara yangu ina bidhaa / hisa za dukani.<br>
+            Mfano: Duka la chakula, dawa, hardware, nguo, simu, n.k.</div>
+          </div>
+          <div class="choice-check" id="checkYes">✓</div>
+        </label>
+
+        <!-- Option B: Exclude stock -->
+        <label class="choice-card" id="cardNo" onclick="selectStock('no')">
+          <input type="radio" name="stockChoice" value="no">
+          <div class="choice-icon">🚫</div>
+          <div class="choice-text">
+            <div class="choice-title">Hapana — Usijumuishe (Weka Sifuri)</div>
+            <div class="choice-desc">Biashara yangu ni huduma — haina hisa za bidhaa.<br>
+            Mfano: Saluni, cyber cafe, gereji, studio, dobi, n.k.</div>
+          </div>
+          <div class="choice-check" id="checkNo">✓</div>
+        </label>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">↩ Rudi Urekebishe</button>
+      <button class="btn btn-green" id="btnConfirmStock" onclick="confirmStock()" disabled>
+        ⚡ Tengeneza Makadirio
+      </button>
+    </div>
+
+  </div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════ -->
 
 <header class="app-header">
   <h1>📊 Best Survey Estimator <span class="badge">Tanzania</span></h1>
@@ -164,7 +351,7 @@
 
 <div class="app-body">
 
-  <!-- ===== MAIN CONTROLS ===== -->
+  <!-- MAIN CONTROLS -->
   <div class="control-panel">
     <h2>Usanidi wa Utafiti (Survey Configuration)</h2>
     <div class="ctrl-row">
@@ -172,53 +359,52 @@
       <div class="ctrl-group">
         <label>Aina ya Biashara</label>
         <select id="bizType">
-          <!-- ZILIZOKUWEPO -->
-<option value="general_retail">Duka la Bidhaa Mchanganyiko</option>
-<option value="cosmetics">Duka la Vipodozi</option>
-<option value="pharmacy">Duka la Dawa</option>
-<option value="clothing">Duka la Mavazi</option>
-<option value="hardware">Duka la Vifaa vya Ujenzi</option>
-<option value="stationery">Duka la Vifaa vya Ofisi / Shule</option>
-<option value="beverage">Duka la Vinywaji</option>
-<option value="mobile_phone">Duka la Simu na Vifaa vyake</option>
-<option value="furniture">Duka la Samani</option>
-<option value="agrovet">Duka la Pembejeo za Kilimo</option>
-<option value="electronics">Duka la Electronics</option>
-<option value="grocery">Duka la Vyakula (Grocery)</option>
-<option value="shoes">Duka la Viatu</option>
-<option value="salon">Saluni / Barbershop</option>
-<option value="printing">Duka la Uchapishaji</option>
-<option value="butchery">Duka la Nyama (Butchery)</option>
-<option value="fish">Duka la Samaki</option>
-<option value="spare_parts">Duka la Spare Parts za Magari</option>
-<option value="solar">Duka la Solar na Betri</option>
-<option value="paint">Duka la Rangi na Vifaa</option>
-<!-- MPYA -->
-<option value="optics">Duka la Miwani (Optics)</option>
-<option value="toys">Duka la Vinyago na Michezo</option>
-<option value="supermarket">Supermarket / Minishop</option>
-<option value="wholesale">Ghala la Jumla (Wholesale)</option>
-<option value="hotel">Hoteli / Gesti</option>
-<option value="restaurant">Mkahawa / Restaurant</option>
-<option value="bakery">Mkate na Mikate (Bakery)</option>
-<option value="water">Duka la Maji (Water Depot)</option>
-<option value="gas">Duka la Gesi (LPG / Mafuta)</option>
-<option value="pesticides">Duka la Dawa za Kilimo</option>
-<option value="seeds">Duka la Mbegu za Kilimo</option>
-<option value="tailoring">Ushonaji wa Nguo (Tailoring)</option>
-<option value="laundry">Dobi / Laundry</option>
-<option value="photostudio">Studio ya Picha (Photo Studio)</option>
-<option value="cybercafe">Cyber Cafe / Internet Cafe</option>
-<option value="mpesa">Wakala wa Fedha (M-Pesa/Tigopesa)</option>
-<option value="bookshop">Duka la Vitabu (Bookshop)</option>
-<option value="tyreshop">Duka la Tairi na Magurudumu</option>
-<option value="garage">Gereji / Karakana ya Magari</option>
-<option value="welding">Useremala / Uchawi wa Chuma</option>
-<option value="phone_repair">Ufundi wa Simu (Phone Repair)</option>
-<option value="electricals">Duka la Vifaa vya Umeme</option>
-<option value="plumbing">Duka la Vifaa vya Maji (Plumbing)</option>
-<option value="charcoal">Duka la Mkaa na Kuni</option>
-<option value="secondhand">Duka la Mitumba (Second Hand)</option>
+          <option value="general_retail">Duka la Bidhaa Mchanganyiko</option>
+          <option value="cosmetics">Duka la Vipodozi</option>
+          <option value="pharmacy">Duka la Dawa</option>
+          <option value="clothing">Duka la Mavazi</option>
+          <option value="matraes">Duka la Magodoro</option>
+          <option value="hardware">Duka la Vifaa vya Ujenzi</option>
+          <option value="stationery">Duka la Vifaa vya Ofisi / Shule</option>
+          <option value="beverage">Duka la Vinywaji</option>
+          <option value="mobile_phone">Duka la Simu na Vifaa vyake</option>
+          <option value="furniture">Duka la Samani</option>
+          <option value="agrovet">Duka la Pembejeo za Kilimo</option>
+          <option value="electronics">Duka la Electronics</option>
+          <option value="grocery">Duka la Vyakula (Grocery)</option>
+          <option value="shoes">Duka la Viatu</option>
+          <option value="salon">Saluni / Barbershop</option>
+          <option value="printing">Duka la Uchapishaji</option>
+          <option value="butchery">Duka la Nyama (Butchery)</option>
+          <option value="fish">Duka la Samaki</option>
+          <option value="spare_parts">Duka la Spare Parts za Magari</option>
+          <option value="solar">Duka la Solar na Betri</option>
+          <option value="paint">Duka la Rangi na Vifaa</option>
+          <option value="optics">Duka la Miwani (Optics)</option>
+          <option value="toys">Duka la Vinyago na Michezo</option>
+          <option value="supermarket">Supermarket / Minishop</option>
+          <option value="wholesale">Ghala la Jumla (Wholesale)</option>
+          <option value="hotel">Hoteli / Gesti</option>
+          <option value="restaurant">Mkahawa / Restaurant</option>
+          <option value="bakery">Mkate na Mikate (Bakery)</option>
+          <option value="water">Duka la Maji (Water Depot)</option>
+          <option value="gas">Duka la Gesi (LPG / Mafuta)</option>
+          <option value="pesticides">Duka la Dawa za Kilimo</option>
+          <option value="seeds">Duka la Mbegu za Kilimo</option>
+          <option value="tailoring">Ushonaji wa Nguo (Tailoring)</option>
+          <option value="laundry">Dobi / Laundry</option>
+          <option value="photostudio">Studio ya Picha (Photo Studio)</option>
+          <option value="cybercafe">Cyber Cafe / Internet Cafe</option>
+          <option value="mpesa">Wakala wa Fedha (M-Pesa / Tigopesa)</option>
+          <option value="bookshop">Duka la Vitabu (Bookshop)</option>
+          <option value="tyreshop">Duka la Tairi na Magurudumu</option>
+          <option value="garage">Gereji / Karakana ya Magari</option>
+          <option value="welding">Huduma ya kuchomelea / useremala</option>
+          <option value="phone_repair">Ufundi wa Simu (Phone Repair)</option>
+          <option value="electricals">Duka la Vifaa vya Umeme</option>
+          <option value="plumbing">Duka la Vifaa vya Maji (Plumbing)</option>
+          <option value="charcoal">Duka la Mkaa na Kuni</option>
+          <option value="secondhand">Duka la Mitumba (Second Hand)</option>
         </select>
       </div>
 
@@ -256,12 +442,11 @@
     </div>
   </div>
 
-  <!-- ===== LOAN QUESTION ===== -->
+  <!-- LOAN QUESTION -->
   <div class="loan-row">
     <div style="font-size:12px; font-weight:700; color:var(--accent); align-self:flex-end; padding-bottom:9px; white-space:nowrap;">
       💳 Je, biashara ina mkopo (loan)?
     </div>
-
     <div class="ctrl-group">
       <label>Jibu</label>
       <div class="radio-group">
@@ -269,48 +454,44 @@
         <label><input type="radio" name="hasLoan" value="yes" onchange="toggleLoan()"> Ndiyo (Kuna mkopo)</label>
       </div>
     </div>
-
     <div class="ctrl-group loan-amount-wrap" id="loanAmountWrap">
       <label>Riba Inayolipwa kwa Mwezi (TZS)</label>
       <input type="number" id="loanInterest" min="0" value="50000" placeholder="e.g. 50000">
       <span class="error-msg" id="errLoan">Ingiza riba sahihi</span>
     </div>
-
     <div class="loan-note">
-      💡 Kama hakuna mkopo, Riba Iliyolipwa (Interest Paid) itakuwa <strong>0.00</strong> kwenye majedwali yote.
+      💡 Kama hakuna mkopo, Riba Iliyolipwa itakuwa <strong>0.00</strong> kwenye majedwali yote.
     </div>
   </div>
 
-  <!-- ===== FIXED VALUES ===== -->
+  <!-- FIXED VALUES + GENERATE BUTTON -->
   <div class="fixed-row">
     <div style="font-size:12px; font-weight:700; color:var(--gold); align-self:flex-end; padding-bottom:9px;">
       🔒 Thamani Zisizobadilika (Sawa kwa Miaka Yote):
     </div>
-
     <div class="ctrl-group">
       <label>Kodi ya Duka kwa Mwezi (TZS)</label>
       <input type="number" id="rentMonthly" min="0" value="150000" placeholder="e.g. 150000">
       <span class="error-msg" id="errRent">Ingiza kodi halisi</span>
     </div>
-
     <div class="fixed-note">
-      💡 Mishahara na Kodi ya duka huhesabiwa kwa miaka yote (2023, 2024, 2025) bila kubadilika.
+      💡 Mishahara na Kodi huhesabiwa kwa miaka yote (2023, 2024, 2025) bila kubadilika.
     </div>
-
     <div class="ctrl-group" style="margin-left:auto;">
       <label>&nbsp;</label>
-      <button class="btn btn-primary" onclick="generateSurvey()">⚡ Tengeneza Makadirio</button>
+      <!-- This button opens the modal first -->
+      <button class="btn btn-primary" onclick="openStockModal()">⚡ Tengeneza Makadirio</button>
     </div>
   </div>
 
-  <!-- ===== DASHBOARD ===== -->
+  <!-- DASHBOARD -->
   <div id="dashSection" style="display:none;">
     <div class="section-label">Muhtasari — 2025</div>
     <div class="meta-strip" id="metaStrip"></div>
     <div class="summary-grid" id="summaryGrid"></div>
   </div>
 
-  <!-- ===== TABLES ===== -->
+  <!-- TABLES -->
   <div id="tablesSection">
     <div class="empty-state">
       <div class="es-icon">📋</div>
@@ -318,94 +499,153 @@
     </div>
   </div>
 
-</div>
+</div><!-- /app-body -->
 
 <script>
 /* =============================================================
-   SHOW/HIDE LOAN AMOUNT INPUT
+   MODAL LOGIC
+   ============================================================= */
+let stockChoiceValue = null; // 'yes' or 'no'
+
+function openStockModal() {
+  // Validate form first — if errors, don't open modal
+  const { ok } = validate();
+  if (!ok) return;
+
+  // Reset modal state
+  stockChoiceValue = null;
+  ['cardYes','cardNo'].forEach(id => {
+    document.getElementById(id).classList.remove('selected','selected-green');
+  });
+  document.getElementById('formulaPreview').innerHTML =
+    '<span class="f-dim">-- Chagua hapa chini kuona formula --</span>';
+  document.getElementById('btnConfirmStock').disabled = true;
+
+  document.getElementById('stockModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('stockModal').classList.remove('open');
+}
+
+function selectStock(choice) {
+  stockChoiceValue = choice;
+
+  // Highlight cards
+  const cardYes = document.getElementById('cardYes');
+  const cardNo  = document.getElementById('cardNo');
+  cardYes.classList.remove('selected','selected-green');
+  cardNo.classList.remove('selected','selected-green');
+
+  if (choice === 'yes') {
+    cardYes.classList.add('selected-green');
+  } else {
+    cardNo.classList.add('selected');
+  }
+
+  // Update formula preview
+  const fp = document.getElementById('formulaPreview');
+  if (choice === 'yes') {
+    fp.innerHTML = `
+      <span class="f-dim">// Formula — Faida Kabla ya Kodi:</span><br>
+      <span class="f-green">Faida</span> = <span class="f-yellow">Mapato Jumla</span>
+               − <span class="f-red">Matumizi Jumla</span>
+               + <span class="f-green">Ongezeko la Hisa ✔</span>
+    `;
+  } else {
+    fp.innerHTML = `
+      <span class="f-dim">// Formula — Faida Kabla ya Kodi:</span><br>
+      <span class="f-green">Faida</span> = <span class="f-yellow">Mapato Jumla</span>
+               − <span class="f-red">Matumizi Jumla</span>
+               <span class="f-dim">+ 0  (Hisa = 0.00)</span>
+    `;
+  }
+
+  document.getElementById('btnConfirmStock').disabled = false;
+}
+
+function confirmStock() {
+  closeModal();
+  generateSurvey();
+}
+
+// Close modal if backdrop clicked
+document.getElementById('stockModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+/* =============================================================
+   LOAN TOGGLE
    ============================================================= */
 function toggleLoan() {
   const hasLoan = document.querySelector('input[name="hasLoan"]:checked').value === 'yes';
-  const wrap = document.getElementById('loanAmountWrap');
-  wrap.classList.toggle('visible', hasLoan);
+  document.getElementById('loanAmountWrap').classList.toggle('visible', hasLoan);
 }
 
 /* =============================================================
-   BUSINESS PROFILES  (TZS Millions)
+   BUSINESS PROFILES (TZS Millions)
    ============================================================= */
 const PROFILES = {
-  // ── ZILIZOKUWEPO ──────────────────────────────────────────────
-  general_retail:  { name:"Duka la Bidhaa Mchanganyiko",        small:{capMin:3,  capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8,  capMax:20, salesMult:[2.5,4.0]} },
-  cosmetics:       { name:"Duka la Vipodozi",                   small:{capMin:3,  capMax:8,  salesMult:[1.8,3.0]}, medium:{capMin:8,  capMax:15, salesMult:[2.0,3.5]} },
-  pharmacy:        { name:"Duka la Dawa",                       small:{capMin:5,  capMax:12, salesMult:[2.5,4.0]}, medium:{capMin:12, capMax:25, salesMult:[3.0,5.0]} },
-  clothing:        { name:"Duka la Mavazi",                     small:{capMin:5,  capMax:10, salesMult:[1.5,2.8]}, medium:{capMin:15, capMax:27, salesMult:[2.0,3.5]} },
-  hardware:        { name:"Duka la Vifaa vya Ujenzi",           small:{capMin:10, capMax:15, salesMult:[2.0,3.5]}, medium:{capMin:15, capMax:30, salesMult:[2.5,4.0]} },
-  stationery:      { name:"Duka la Vifaa vya Ofisi/Shule",      small:{capMin:2,  capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6,  capMax:14, salesMult:[2.5,4.0]} },
-  beverage:        { name:"Duka la Vinywaji",                   small:{capMin:3,  capMax:9,  salesMult:[2.5,4.5]}, medium:{capMin:9,  capMax:20, salesMult:[3.0,5.5]} },
-  mobile_phone:    { name:"Duka la Simu na Vifaa vyake",        small:{capMin:5,  capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:25, salesMult:[2.5,4.5]} },
-  furniture:       { name:"Duka la Samani",                     small:{capMin:6,  capMax:15, salesMult:[1.5,2.5]}, medium:{capMin:15, capMax:35, salesMult:[1.8,3.0]} },
-  agrovet:         { name:"Duka la Pembejeo za Kilimo",         small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:22, salesMult:[2.5,4.5]} },
-  electronics:     { name:"Duka la Electronics",                small:{capMin:6,  capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14, capMax:30, salesMult:[2.5,4.0]} },
-  grocery:         { name:"Duka la Vyakula (Grocery)",          small:{capMin:3,  capMax:8,  salesMult:[3.0,5.0]}, medium:{capMin:8,  capMax:18, salesMult:[3.5,6.0]} },
-  shoes:           { name:"Duka la Viatu",                      small:{capMin:3,  capMax:9,  salesMult:[1.8,3.0]}, medium:{capMin:9,  capMax:20, salesMult:[2.0,3.5]} },
-  salon:           { name:"Saluni / Barbershop",                small:{capMin:1,  capMax:4,  salesMult:[3.0,5.5]}, medium:{capMin:4,  capMax:10, salesMult:[3.5,6.0]} },
-  printing:        { name:"Duka la Uchapishaji",                small:{capMin:2,  capMax:6,  salesMult:[2.5,4.0]}, medium:{capMin:6,  capMax:15, salesMult:[3.0,5.0]} },
-  butchery:        { name:"Duka la Nyama (Butchery)",           small:{capMin:2,  capMax:7,  salesMult:[4.0,7.0]}, medium:{capMin:7,  capMax:18, salesMult:[5.0,8.0]} },
-  fish:            { name:"Duka la Samaki",                     small:{capMin:1,  capMax:5,  salesMult:[4.0,7.0]}, medium:{capMin:5,  capMax:14, salesMult:[5.0,8.5]} },
-  spare_parts:     { name:"Duka la Spare Parts za Magari",      small:{capMin:8,  capMax:18, salesMult:[1.8,3.0]}, medium:{capMin:18, capMax:40, salesMult:[2.0,3.5]} },
-  solar:           { name:"Duka la Solar na Betri",             small:{capMin:5,  capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:28, salesMult:[2.5,4.0]} },
-  paint:           { name:"Duka la Rangi na Vifaa",             small:{capMin:6,  capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14, capMax:30, salesMult:[2.5,4.0]} },
-
-  // ── MPYA ZILIZOONGEZWA ─────────────────────────────────────────
-  optics:          { name:"Duka la Miwani (Optics)",            small:{capMin:3,  capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8,  capMax:18, salesMult:[2.5,4.5]} },
-  toys:            { name:"Duka la Vinyago na Michezo",         small:{capMin:2,  capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6,  capMax:14, salesMult:[2.5,4.0]} },
-  supermarket:     { name:"Supermarket / Minishop",             small:{capMin:15, capMax:30, salesMult:[3.5,6.0]}, medium:{capMin:30, capMax:80, salesMult:[4.0,7.0]} },
-  wholesale:       { name:"Ghala la Jumla (Wholesale)",         small:{capMin:20, capMax:50, salesMult:[2.0,3.5]}, medium:{capMin:50, capMax:150,salesMult:[2.5,4.0]} },
-  hotel:           { name:"Hoteli / Gesti",                     small:{capMin:5,  capMax:15, salesMult:[2.5,4.5]}, medium:{capMin:15, capMax:40, salesMult:[3.0,5.5]} },
-  restaurant:      { name:"Mkahawa / Restaurant",               small:{capMin:2,  capMax:8,  salesMult:[3.0,5.5]}, medium:{capMin:8,  capMax:20, salesMult:[3.5,6.5]} },
-  bakery:          { name:"Mkate na Mikate (Bakery)",            small:{capMin:6,  capMax:11,  salesMult:[3.0,5.0]}, medium:{capMin:12,  capMax:25, salesMult:[3.5,6.0]} },
-  water:           { name:"Duka la Maji (Water Depot)",         small:{capMin:2,  capMax:6,  salesMult:[3.5,6.0]}, medium:{capMin:6,  capMax:15, salesMult:[4.0,7.0]} },
-  gas:             { name:"Duka la Gesi (LPG / Mafuta)",        small:{capMin:3,  capMax:9,  salesMult:[3.0,5.5]}, medium:{capMin:9,  capMax:22, salesMult:[3.5,6.5]} },
-  pesticides:      { name:"Duka la Dawa za Kilimo (Pesticides)",small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:24, salesMult:[2.5,4.5]} },
-  seeds:           { name:"Duka la Mbegu za Kilimo",            small:{capMin:3,  capMax:9,  salesMult:[2.0,3.5]}, medium:{capMin:9,  capMax:22, salesMult:[2.5,4.5]} },
-  tailoring:       { name:"Ushonaji wa Nguo (Tailoring)",       small:{capMin:1,  capMax:5,  salesMult:[2.5,4.5]}, medium:{capMin:5,  capMax:14, salesMult:[3.0,5.5]} },
-  laundry:         { name:"Dobi / Laundry",                     small:{capMin:1,  capMax:4,  salesMult:[3.0,5.5]}, medium:{capMin:4,  capMax:10, salesMult:[3.5,6.0]} },
-  photostudio:     { name:"Studio ya Picha (Photo Studio)",     small:{capMin:2,  capMax:6,  salesMult:[2.5,4.5]}, medium:{capMin:6,  capMax:14, salesMult:[3.0,5.5]} },
-  cybercafe:       { name:"Cyber Cafe / Internet Cafe",         small:{capMin:1,  capMax:5,  salesMult:[2.5,4.5]}, medium:{capMin:5,  capMax:12, salesMult:[3.0,5.5]} },
-  mpesa:           { name:"Wakala wa Fedha (M-Pesa/Tigopesa)",  small:{capMin:2,  capMax:6,  salesMult:[3.0,5.5]}, medium:{capMin:6,  capMax:15, salesMult:[3.5,6.5]} },
-  bookshop:        { name:"Duka la Vitabu (Bookshop)",          small:{capMin:2,  capMax:6,  salesMult:[1.8,3.0]}, medium:{capMin:6,  capMax:14, salesMult:[2.0,3.5]} },
-  tyreshop:        { name:"Duka la Tairi na Magurudumu",        small:{capMin:5,  capMax:12, salesMult:[1.8,3.0]}, medium:{capMin:12, capMax:28, salesMult:[2.0,3.5]} },
-  garage:          { name:"Gereji / Karakana ya Magari",        small:{capMin:4,  capMax:12, salesMult:[2.0,4.0]}, medium:{capMin:12, capMax:30, salesMult:[2.5,5.0]} },
-  welding:         { name:"Useremala / Uchawi wa Chuma",        small:{capMin:2,  capMax:7,  salesMult:[2.0,4.0]}, medium:{capMin:7,  capMax:18, salesMult:[2.5,4.5]} },
-  phone_repair:    { name:"Ufundi wa Simu (Phone Repair)",      small:{capMin:1,  capMax:4,  salesMult:[2.5,4.5]}, medium:{capMin:4,  capMax:10, salesMult:[3.0,5.5]} },
-  electricals:     { name:"Duka la Vifaa vya Umeme (Electrical)",small:{capMin:4, capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:28, salesMult:[2.5,4.0]} },
-  plumbing:        { name:"Duka la Vifaa vya Maji (Plumbing)",  small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:24, salesMult:[2.5,4.0]} },
-  charcoal:        { name:"Duka la Mkaa na Kuni",               small:{capMin:1,  capMax:4,  salesMult:[4.0,7.0]}, medium:{capMin:4,  capMax:10, salesMult:[5.0,8.0]} },
-  secondhand:      { name:"Duka la Mitumba (Second Hand)",      small:{capMin:2,  capMax:7,  salesMult:[2.0,4.0]}, medium:{capMin:7,  capMax:18, salesMult:[2.5,4.5]} },
+  general_retail:  { name:"Duka la Bidhaa Mchanganyiko",          small:{capMin:3,  capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8,  capMax:20,  salesMult:[2.5,4.0]} },
+  cosmetics:       { name:"Duka la Vipodozi",                     small:{capMin:3,  capMax:8,  salesMult:[1.8,3.0]}, medium:{capMin:8,  capMax:15,  salesMult:[2.0,3.5]} },
+  pharmacy:        { name:"Duka la Dawa",                         small:{capMin:5,  capMax:12, salesMult:[2.5,4.0]}, medium:{capMin:12, capMax:25,  salesMult:[3.0,5.0]} },
+  clothing:        { name:"Duka la Mavazi",                       small:{capMin:5,  capMax:10, salesMult:[1.5,2.8]}, medium:{capMin:15, capMax:27,  salesMult:[2.0,3.5]} },
+  hardware:        { name:"Duka la Vifaa vya Ujenzi",             small:{capMin:10, capMax:15, salesMult:[2.0,3.5]}, medium:{capMin:15, capMax:30,  salesMult:[2.5,4.0]} },
+  stationery:      { name:"Duka la Vifaa vya Ofisi/Shule",        small:{capMin:2,  capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6,  capMax:14,  salesMult:[2.5,4.0]} },
+  beverage:        { name:"Duka la Vinywaji",                     small:{capMin:3,  capMax:9,  salesMult:[2.5,4.5]}, medium:{capMin:9,  capMax:20,  salesMult:[3.0,5.5]} },
+  mobile_phone:    { name:"Duka la Simu na Vifaa vyake",          small:{capMin:5,  capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:25,  salesMult:[2.5,4.5]} },
+  furniture:       { name:"Duka la Samani",                       small:{capMin:6,  capMax:15, salesMult:[1.5,2.5]}, medium:{capMin:15, capMax:35,  salesMult:[1.8,3.0]} },
+  agrovet:         { name:"Duka la Pembejeo za Kilimo",           small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:22,  salesMult:[2.5,4.5]} },
+  matraes:         { name:"Duka la Electronics",                  small:{capMin:6,  capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14, capMax:30,  salesMult:[2.5,4.0]} },
+  electronics:     { name:"Duka la Electronics",                  small:{capMin:6,  capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14, capMax:30,  salesMult:[2.5,4.0]} },
+  grocery:         { name:"Duka la Vyakula (Grocery)",            small:{capMin:3,  capMax:8,  salesMult:[3.0,5.0]}, medium:{capMin:8,  capMax:18,  salesMult:[3.5,6.0]} },
+  shoes:           { name:"Duka la Viatu",                        small:{capMin:3,  capMax:9,  salesMult:[1.8,3.0]}, medium:{capMin:9,  capMax:20,  salesMult:[2.0,3.5]} },
+  salon:           { name:"Saluni / Barbershop",                  small:{capMin:1,  capMax:4,  salesMult:[3.0,5.5]}, medium:{capMin:4,  capMax:10,  salesMult:[3.5,6.0]} },
+  printing:        { name:"Duka la Uchapishaji",                  small:{capMin:2,  capMax:6,  salesMult:[2.5,4.0]}, medium:{capMin:6,  capMax:15,  salesMult:[3.0,5.0]} },
+  butchery:        { name:"Duka la Nyama (Butchery)",             small:{capMin:2,  capMax:7,  salesMult:[4.0,7.0]}, medium:{capMin:7,  capMax:18,  salesMult:[5.0,8.0]} },
+  fish:            { name:"Duka la Samaki",                       small:{capMin:1,  capMax:5,  salesMult:[4.0,7.0]}, medium:{capMin:5,  capMax:14,  salesMult:[5.0,8.5]} },
+  spare_parts:     { name:"Duka la Spare Parts za Magari",        small:{capMin:8,  capMax:18, salesMult:[1.8,3.0]}, medium:{capMin:18, capMax:40,  salesMult:[2.0,3.5]} },
+  solar:           { name:"Duka la Solar na Betri",               small:{capMin:5,  capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:28,  salesMult:[2.5,4.0]} },
+  paint:           { name:"Duka la Rangi na Vifaa",               small:{capMin:6,  capMax:14, salesMult:[2.0,3.5]}, medium:{capMin:14, capMax:30,  salesMult:[2.5,4.0]} },
+  optics:          { name:"Duka la Miwani (Optics)",              small:{capMin:3,  capMax:8,  salesMult:[2.0,3.5]}, medium:{capMin:8,  capMax:18,  salesMult:[2.5,4.5]} },
+  toys:            { name:"Duka la Vinyago na Michezo",           small:{capMin:2,  capMax:6,  salesMult:[2.0,3.5]}, medium:{capMin:6,  capMax:14,  salesMult:[2.5,4.0]} },
+  supermarket:     { name:"Supermarket / Minishop",               small:{capMin:15, capMax:30, salesMult:[3.5,6.0]}, medium:{capMin:30, capMax:80,  salesMult:[4.0,7.0]} },
+  wholesale:       { name:"Ghala la Jumla (Wholesale)",           small:{capMin:20, capMax:50, salesMult:[2.0,3.5]}, medium:{capMin:50, capMax:150, salesMult:[2.5,4.0]} },
+  hotel:           { name:"Hoteli / Gesti",                       small:{capMin:5,  capMax:15, salesMult:[2.5,4.5]}, medium:{capMin:15, capMax:40,  salesMult:[3.0,5.5]} },
+  restaurant:      { name:"Mkahawa / Restaurant",                 small:{capMin:2,  capMax:8,  salesMult:[3.0,5.5]}, medium:{capMin:8,  capMax:20,  salesMult:[3.5,6.5]} },
+  bakery:          { name:"Mkate na Mikate (Bakery)",             small:{capMin:6,  capMax:11, salesMult:[3.0,5.0]}, medium:{capMin:12, capMax:25,  salesMult:[3.5,6.0]} },
+  water:           { name:"Duka la Maji (Water Depot)",           small:{capMin:2,  capMax:6,  salesMult:[3.5,6.0]}, medium:{capMin:6,  capMax:15,  salesMult:[4.0,7.0]} },
+  gas:             { name:"Duka la Gesi (LPG / Mafuta)",          small:{capMin:3,  capMax:9,  salesMult:[3.0,5.5]}, medium:{capMin:9,  capMax:22,  salesMult:[3.5,6.5]} },
+  pesticides:      { name:"Duka la Dawa za Kilimo",               small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:24,  salesMult:[2.5,4.5]} },
+  seeds:           { name:"Duka la Mbegu za Kilimo",              small:{capMin:3,  capMax:9,  salesMult:[2.0,3.5]}, medium:{capMin:9,  capMax:22,  salesMult:[2.5,4.5]} },
+  tailoring:       { name:"Ushonaji wa Nguo (Tailoring)",         small:{capMin:1,  capMax:5,  salesMult:[2.5,4.5]}, medium:{capMin:5,  capMax:14,  salesMult:[3.0,5.5]} },
+  laundry:         { name:"Dobi / Laundry",                       small:{capMin:1,  capMax:4,  salesMult:[3.0,5.5]}, medium:{capMin:4,  capMax:10,  salesMult:[3.5,6.0]} },
+  photostudio:     { name:"Studio ya Picha (Photo Studio)",       small:{capMin:2,  capMax:6,  salesMult:[2.5,4.5]}, medium:{capMin:6,  capMax:14,  salesMult:[3.0,5.5]} },
+  cybercafe:       { name:"Cyber Cafe / Internet Cafe",           small:{capMin:1,  capMax:5,  salesMult:[2.5,4.5]}, medium:{capMin:5,  capMax:12,  salesMult:[3.0,5.5]} },
+  mpesa:           { name:"Wakala wa Fedha (M-Pesa/Tigopesa)",    small:{capMin:2,  capMax:6,  salesMult:[3.0,5.5]}, medium:{capMin:6,  capMax:15,  salesMult:[3.5,6.5]} },
+  bookshop:        { name:"Duka la Vitabu (Bookshop)",            small:{capMin:2,  capMax:6,  salesMult:[1.8,3.0]}, medium:{capMin:6,  capMax:14,  salesMult:[2.0,3.5]} },
+  tyreshop:        { name:"Duka la Tairi na Magurudumu",          small:{capMin:5,  capMax:12, salesMult:[1.8,3.0]}, medium:{capMin:12, capMax:28,  salesMult:[2.0,3.5]} },
+  garage:          { name:"Gereji / Karakana ya Magari",          small:{capMin:4,  capMax:12, salesMult:[2.0,4.0]}, medium:{capMin:12, capMax:30,  salesMult:[2.5,5.0]} },
+  welding:         { name:"huduma ya kuchomelea/useremala",       small:{capMin:2,  capMax:7,  salesMult:[2.0,4.0]}, medium:{capMin:7,  capMax:18,  salesMult:[2.5,4.5]} },
+  phone_repair:    { name:"Ufundi wa Simu (Phone Repair)",        small:{capMin:1,  capMax:4,  salesMult:[2.5,4.5]}, medium:{capMin:4,  capMax:10,  salesMult:[3.0,5.5]} },
+  electricals:     { name:"Duka la Vifaa vya Umeme",              small:{capMin:4,  capMax:12, salesMult:[2.0,3.5]}, medium:{capMin:12, capMax:28,  salesMult:[2.5,4.0]} },
+  plumbing:        { name:"Duka la Vifaa vya Maji (Plumbing)",    small:{capMin:4,  capMax:10, salesMult:[2.0,3.5]}, medium:{capMin:10, capMax:24,  salesMult:[2.5,4.0]} },
+  charcoal:        { name:"Duka la Mkaa na Kuni",                 small:{capMin:1,  capMax:4,  salesMult:[4.0,7.0]}, medium:{capMin:4,  capMax:10,  salesMult:[5.0,8.0]} },
+  secondhand:      { name:"Duka la Mitumba (Second Hand)",        small:{capMin:2,  capMax:7,  salesMult:[2.0,4.0]}, medium:{capMin:7,  capMax:18,  salesMult:[2.5,4.5]} },
 };
 
 /* =============================================================
    STATISTICAL HELPERS
    ============================================================= */
 function randomBetween(min, max) { return min + Math.random() * (max - min); }
-
-function confidenceInterval(centre, variationPct) {
-  const delta = centre * (variationPct / 100) * (Math.random() * 2 - 1);
-  return Math.max(0, centre + delta);
-}
-
-function annualGrowth(base, minPct, maxPct) {
-  return base * (1 + randomBetween(minPct, maxPct) / 100);
-}
-
+function confidenceInterval(c, v) { return Math.max(0, c + c*(v/100)*(Math.random()*2-1)); }
+function annualGrowth(base, mn, mx) { return base * (1 + randomBetween(mn, mx) / 100); }
 function r2(v) { return Math.round(v * 100) / 100; }
 function fmt(v) { return r2(Math.abs(v)).toFixed(2); }
 
-/* Sales snapped to 360-day multiple */
-function snapTo360(salesRaw) {
-  const daily = salesRaw / 360;
-  const dailyRounded = Math.round(daily * 10000) / 10000;
-  return r2(dailyRounded * 360);
+function snapTo360(raw) {
+  const daily = raw / 360;
+  return r2(Math.round(daily * 10000) / 10000 * 360);
 }
 
 /* =============================================================
@@ -433,41 +673,30 @@ function validate() {
 
 /* =============================================================
    BUILD YEAR DATA
-   fixedWages     — constant (TZS millions) same every year
-   fixedRentPaid  — constant (TZS millions) same every year
-   fixedInterest  — 0 if no loan, else user-defined × 12 (TZS millions)
+   includeStock — boolean from modal choice
    ============================================================= */
-function buildYearData(capital, salesMult, emp, fixedWages, fixedRentPaid, fixedInterest) {
+function buildYearData(capital, salesMult, emp, fixedWages, fixedRentPaid, fixedInterest, includeStock) {
 
-  // Sales — snapped to 360-day multiple
   const salesRaw = capital * randomBetween(salesMult[0], salesMult[1]);
   const sales    = snapTo360(confidenceInterval(salesRaw, 4));
 
-  // Receipts (simple — no other income for small/medium)
-  const interestRec = 0;
-  const rentRec     = 0;
-  const subsidies   = 0;
-  const otherIncome = 0;
-  const totalReceipts = r2(sales + interestRec + rentRec + subsidies + otherIncome);
+  const interestRec = 0, rentRec = 0, subsidies = 0, otherIncome = 0;
+  const totalReceipts = r2(sales);
 
-  // Expenditure
-  const wages        = fixedWages;          // FIXED — same every year
-  const interestPaid = fixedInterest;       // 0 if no loan, else FIXED annual interest
-  const rentPaid     = fixedRentPaid;       // FIXED — same every year
+  const wages        = fixedWages;
+  const interestPaid = fixedInterest;
+  const rentPaid     = fixedRentPaid;
   const depreciation = 0;
   const miscExp      = r2(sales * randomBetween(0.45, 0.60));
   const totalExpenditure = r2(wages + interestPaid + rentPaid + depreciation + miscExp);
 
-  // Stock increase
-  const stockIncrease = r2(sales * randomBetween(0.25, 0.40));
+  // Stock — only if user chose to include it
+  const stockIncrease = includeStock ? r2(sales * randomBetween(0.25, 0.40)) : 0;
 
-  // Profit
+  // Profit formula changes based on stock choice
   const profitBeforeTax = r2(totalReceipts - totalExpenditure + stockIncrease);
-                            
-  
   const profitSafe      = Math.max(0, profitBeforeTax);
 
-  // Tax (15%) + small random variation
   const corporateTax = r2(profitSafe * 0.15 + randomBetween(0.05, 0.10));
   const dividends    = 0;
 
@@ -481,11 +710,14 @@ function buildYearData(capital, salesMult, emp, fixedWages, fixedRentPaid, fixed
 }
 
 /* =============================================================
-   MAIN GENERATE
+   MAIN GENERATE — called after modal confirm
    ============================================================= */
 function generateSurvey() {
   const { ok, male, female, salary, rent, hasLoan, loanInt } = validate();
   if (!ok) return;
+
+  // Stock decision from modal
+  const includeStock = (stockChoiceValue === 'yes');
 
   const typeKey  = document.getElementById('bizType').value;
   const sizeKey  = document.getElementById('bizSize').value;
@@ -494,25 +726,23 @@ function generateSurvey() {
   const sizeConf = profile[sizeKey];
 
   const emp = { male, female, total: male + female };
-
-  // Fixed annual values (TZS Millions)
   const fixedWages    = r2((salary / 1_000_000) * emp.total * 12);
   const fixedRentPaid = r2((rent   / 1_000_000) * 12);
   const fixedInterest = hasLoan ? r2((loanInt / 1_000_000) * 12) : 0;
 
   const cap2023 = r2(randomBetween(sizeConf.capMin, sizeConf.capMax));
-  const d2023   = buildYearData(cap2023, sizeConf.salesMult, emp, fixedWages, fixedRentPaid, fixedInterest);
+  const d2023   = buildYearData(cap2023, sizeConf.salesMult, emp, fixedWages, fixedRentPaid, fixedInterest, includeStock);
 
   const cap2024 = r2(annualGrowth(cap2023, 5, 20));
-  const d2024   = buildYearData(cap2024, sizeConf.salesMult.map(x => x * randomBetween(1.05, 1.20)), emp, fixedWages, fixedRentPaid, fixedInterest);
+  const d2024   = buildYearData(cap2024, sizeConf.salesMult.map(x => x * randomBetween(1.05, 1.20)), emp, fixedWages, fixedRentPaid, fixedInterest, includeStock);
 
   const cap2025 = r2(annualGrowth(cap2024, 5, 20));
-  const d2025   = buildYearData(cap2025, sizeConf.salesMult.map(x => x * randomBetween(1.05, 1.20)), emp, fixedWages, fixedRentPaid, fixedInterest);
+  const d2025   = buildYearData(cap2025, sizeConf.salesMult.map(x => x * randomBetween(1.05, 1.20)), emp, fixedWages, fixedRentPaid, fixedInterest, includeStock);
 
   const data = {
     bizName: profile.name,
     bizSize: sizeKey === 'small' ? 'Biashara Ndogo' : 'Biashara ya Kati',
-    location, hasLoan,
+    location, hasLoan, includeStock,
     fixedWages, fixedRentPaid, fixedInterest,
     typeKey, sizeKey,
     years: { 2023: d2023, 2024: d2024, 2025: d2025 }
@@ -537,13 +767,14 @@ function renderDashboard(data) {
     <div class="meta-item">🔒 Mishahara/Mwaka: <strong>TZS ${fmt(data.fixedWages)} Mil.</strong></div>
     <div class="meta-item">🔒 Kodi/Mwaka: <strong>TZS ${fmt(data.fixedRentPaid)} Mil.</strong></div>
     <div class="meta-item">💳 Mkopo: <strong>${data.hasLoan ? 'Ndiyo — Riba TZS ' + fmt(data.fixedInterest) + ' Mil./Mwaka' : 'Hapana'}</strong></div>
+    <div class="meta-item">📦 Hisa: <strong>${data.includeStock ? '✅ Imejumuishwa' : '🚫 Haijajumuishwa'}</strong></div>
   `;
 
   const cards = [
     { label:'Mtaji (Capital)',       value: d.workingCapital,   cls:'accent' },
     { label:'Mauzo (Sales)',         value: d.sales,            cls:'gold'   },
     { label:'Mapato Jumla',          value: d.totalReceipts,    cls:'green'  },
-    { label:'Matumizi Jumla',        value: d.totalExpenditure, cls:'gold'       },
+    { label:'Matumizi Jumla',        value: d.totalExpenditure, cls:'gold'   },
     { label:'Faida Kabla ya Kodi',   value: d.profitBeforeTax,  cls: d.profitBeforeTax >= 0 ? 'green' : 'red' },
     { label:'Kodi ya Kampuni (15%)', value: d.corporateTax,     cls:'red'    }
   ];
@@ -567,7 +798,6 @@ function renderTables(data) {
     ${years.map(y => `<th>${y} (TZS Mil.)</th>`).join('')}
   </tr></thead>`;
 
-  // TABLE 1 — General Info
   const tbl1 = card(1, 'TAARIFA ZA JUMLA', 'General Information — Mtaji na Wafanyakazi',
     `<table class="survey">${yHead}<tbody>
       <tr><td>Mtaji wa Kufanyia Kazi (Working Capital)</td>${years.map(y=>`<td>${fmt(yrs[y].workingCapital)}</td>`).join('')}</tr>
@@ -577,7 +807,6 @@ function renderTables(data) {
     </tbody></table>`
   );
 
-  // TABLE 2 — Receipts
   const tbl2 = card(2, 'MAPATO (RECEIPTS)', 'Mauzo na Vyanzo Vingine vya Mapato',
     `<table class="survey">${yHead}<tbody>
       <tr><td>Mauzo (Income from Sales)</td>${years.map(y=>`<td>${fmt(yrs[y].sales)}</td>`).join('')}</tr>
@@ -590,8 +819,6 @@ function renderTables(data) {
     </table>`
   );
 
-  // TABLE 3 — Expenditure
-  // Interest paid label changes based on loan status
   const interestLabel = data.hasLoan
     ? `Riba Iliyolipwa — Mkopo (Interest Paid) <span class="fixed-tag">FIXED</span>`
     : `Riba Iliyolipwa (Interest Paid) <span style="font-size:10px;color:var(--ink-light);font-style:italic;"> — Hakuna mkopo</span>`;
@@ -617,10 +844,17 @@ function renderTables(data) {
     </table>`
   );
 
-  // TABLE 4 — Profit & Tax
+  // Stock row label — shows whether included or zeroed
+  const stockLabel = data.includeStock
+    ? `Ongezeko la Hisa (Increase in Stocks) <span class="stock-tag">INCLUDED</span>`
+    : `Ongezeko la Hisa (Increase in Stocks) <span style="font-size:10px;color:var(--ink-light);font-style:italic;"> — Haijaingizwa</span>`;
+
   const tbl4 = card(4, 'FAIDA NA KODI (PROFIT & TAX)', 'Faida Kabla ya Kodi · Kodi ya Kampuni',
     `<table class="survey">${yHead}<tbody>
-      <tr><td>Ongezeko la Hisa (Increase in Stocks)</td>${years.map(y=>`<td>${fmt(yrs[y].stockIncrease)}</td>`).join('')}</tr>
+      <tr>
+        <td>${stockLabel}</td>
+        ${years.map(y=>`<td>${fmt(yrs[y].stockIncrease)}</td>`).join('')}
+      </tr>
       <tr><td>Faida Kabla ya Kodi (Profit Before Tax)</td>${years.map(y => {
         const cls = yrs[y].profitBeforeTax >= 0 ? 'val-positive' : 'val-negative';
         return `<td class="${cls}">${fmt(yrs[y].profitBeforeTax)}</td>`;
